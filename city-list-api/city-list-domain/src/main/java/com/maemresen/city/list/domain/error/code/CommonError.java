@@ -14,6 +14,6 @@ public enum CommonError implements ServiceError {
 
 	@Override
 	public String getCodePrefix() {
-		return "E00";
+		return "EC00";
 	}
 }
