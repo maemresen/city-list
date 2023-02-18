@@ -48,5 +48,4 @@ public class DataSourceConfig {
 		MapUtils.emptyIfNull(dataSourceProps.getProperties()).forEach(config::addDataSourceProperty);
 		return config;
 	}
-
 }

@@ -19,21 +19,6 @@
             <artifactId>city-list-domain</artifactId>
         </dependency>
 
-        <!-- Database -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-            <version>${liquibase.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-        </dependency>
-
         <!-- Jersey -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -46,6 +31,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${org.springboot.mavenplugin.version}</version>
                 <configuration>
                     <mainClass>com.maemresen.city.list.rest.CityListApplication</mainClass>
                     <annotationProcessorPaths>
