@@ -5,3 +5,13 @@ spring:
     enabled: false
     change-log: classpath:liquibase/changelog.xml
     contexts: ${spring.profiles.active}
+
+app:
+  datasource:
+    jdbcUrl: jdbc:postgresql://127.0.0.1:5432/city_list_local
+    username: postgres
+    password: postgres
+    properties:
+      cachePrepStmts: true
+      prepStmtCacheSize: 250
+      prepStmtCacheSqlLimit: 2048
