@@ -6,12 +6,11 @@ server:
 spring:
   profiles:
     active: dev
+app:
   liquibase:
-    enabled: false
+    enabled: true
     change-log: classpath:liquibase/changelog.xml
     contexts: ${spring.profiles.active}
-
-app:
   datasource:
     jdbcUrl: jdbc:postgresql://127.0.0.1:5432/city_list_local
     username: postgres

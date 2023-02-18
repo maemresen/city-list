@@ -28,15 +28,23 @@ public class DataSourceConfig {
 
 	private HikariConfig hikariConfig() throws ServiceException {
 		HikariConfig config = new HikariConfig();
-		config.setJdbcUrl(Optional.of(dataSourceProps)
+
+		String jdbcUrl = Optional.of(dataSourceProps)
 			.map(DataSourceProps::getJdbcUrl)
-			.orElseThrow(() -> new ServiceException("JDBC url not found while configuring datasource")));
-		config.setUsername(Optional.of(dataSourceProps)
+			.orElseThrow(() -> new ServiceException("JDBC url not found while configuring datasource"));
+		config.setJdbcUrl(jdbcUrl);
+
+		String username = Optional.of(dataSourceProps)
 			.map(DataSourceProps::getUsername)
-			.orElseThrow(() -> new ServiceException("Username not found while configuring datasource")));
-		config.setPassword(Optional.of(dataSourceProps)
+			.orElseThrow(() -> new ServiceException("Username not found while configuring datasource"));
+		config.setUsername(username);
+
+		String password = Optional.of(dataSourceProps)
 			.map(DataSourceProps::getPassword)
-			.orElseThrow(() -> new ServiceException("Username not found while configuring datasource")));
+
+			.orElseThrow(() -> new ServiceException("Username not found while configuring datasource"));
+		config.setPassword(password);
+
 		MapUtils.emptyIfNull(dataSourceProps.getProperties()).forEach(config::addDataSourceProperty);
 		return config;
 	}
