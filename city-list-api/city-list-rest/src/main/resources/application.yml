@@ -13,9 +13,14 @@ app:
     contexts: ${spring.profiles.active}
   datasource:
     jdbcUrl: jdbc:postgresql://127.0.0.1:5432/city_list_local
+    driver: org.postgresql.Driver
     username: postgres
     password: postgres
-    properties:
-      cachePrepStmts: true
-      prepStmtCacheSize: 250
-      prepStmtCacheSqlLimit: 2048
+
+jakarta:
+  persistence:
+    jdbc:
+      driver: org.postgresql.Driver
+      url: jdbc:postgresql://127.0.0.1:5432/city_list_local
+      user: postgres
+      password: postgres
