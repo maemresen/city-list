@@ -17,6 +17,27 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <spring.boot.version>3.0.2</spring.boot.version>
+    <spring-doc.openapi.version>2.0.2</spring-doc.openapi.version>
   </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.maemresen</groupId>
+        <artifactId>city-list-domain</artifactId>
+        <version>1.0.00</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 </project>
