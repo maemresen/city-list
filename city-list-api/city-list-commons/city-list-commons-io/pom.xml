@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>city-list-commons-io</artifactId>
-    <name>IO Utils</name>
+    <name>City List - Utils - IO</name>
 
     <dependencies>
         <dependency>
