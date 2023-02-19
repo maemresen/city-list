@@ -16,7 +16,7 @@ public enum CommonServiceError implements ServiceError {
 	private final int codeNumber;
 	private final HttpStatus httpStatus;
 
-	public static CommonServiceError getByHttpStatusCode(int httpStatusCode){
+	public static CommonServiceError getByHttpStatusCode(int httpStatusCode) {
 		return Arrays.stream(values())
 			.filter(x -> x.getHttpStatus().value() == httpStatusCode)
 			.findFirst()

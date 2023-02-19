@@ -8,7 +8,8 @@ public interface ServiceError {
 	Map<Class<? extends ServiceError>, Integer> SERVICE_ERROR_INDEX_MAP = Map.ofEntries(
 		Map.entry(CommonServiceError.class, 0),
 		Map.entry(FileError.class, 1),
-		Map.entry(CityError.class, 2)
+		Map.entry(CityError.class, 2),
+		Map.entry(UserError.class, 3)
 	);
 
 	default String getCode() {

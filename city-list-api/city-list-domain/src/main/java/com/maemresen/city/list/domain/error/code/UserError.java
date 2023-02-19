@@ -6,9 +6,10 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum FileError implements ServiceError {
-	FILE_IO_ERROR(1, HttpStatus.INTERNAL_SERVER_ERROR);
+public enum UserError implements ServiceError {
+	USER_NOT_FOUND(1, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	private final int codeNumber;
 	private final HttpStatus httpStatus;
+
 }

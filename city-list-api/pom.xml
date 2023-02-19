@@ -27,6 +27,7 @@
     <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
     <org.apache.commons.collections.version>4.4</org.apache.commons.collections.version>
     <org.apache.commons.lang.version>3.12.0</org.apache.commons.lang.version>
+    <io.jsonwebtoken.jjwt.versoin>0.9.1</io.jsonwebtoken.jjwt.versoin>
   </properties>
 
   <dependencyManagement>

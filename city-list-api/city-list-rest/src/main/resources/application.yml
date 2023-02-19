@@ -32,6 +32,10 @@ app:
       photo-download-retry:
         maxAttempts: 3
         maxDelay: 1000
+  security:
+    jwt:
+      secret: jwt-secret-key
+      expiration-ms: 86400000
 server:
   servlet:
     context-path: /api
