@@ -13,6 +13,7 @@ import com.maemresen.city.list.domain.service.model.create.city.CityCreateReques
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
+import com.maemresen.city.list.domain.service.specification.CitySearchSpecification;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -48,8 +50,9 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public Page<CityResponseDto> findAll(Pageable pageable){
-		return cityRepository.findAll(pageable).map(cityMapper::mapToCityDto);
+	public Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> reqestParamMap){
+		return cityRepository.findAll(new CitySearchSpecification(reqestParamMap), pageable)
+			.map(cityMapper::mapToCityDto);
 	}
 
 	@Override

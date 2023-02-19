@@ -10,7 +10,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @Tag(name = "City Controller", description = "City related operations like listing, editing etc.")
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class CityController {
 
 	@Operation(summary = "List cities")
 	@GetMapping
-	public GenericResponse<Page<CityResponseDto>> findAll(Pageable pageable){
-		return GenericResponse.ok(cityService.findAll(pageable));
+	public GenericResponse<Page<CityResponseDto>> findAll(Pageable pageable, @RequestParam Map<String, String> reqestParamMap) {
+		return GenericResponse.ok(cityService.findAll(pageable, reqestParamMap));
 	}
 }
