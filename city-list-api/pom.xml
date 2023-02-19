@@ -10,6 +10,11 @@
 
   <name>City List API</name>
 
+  <modules>
+    <module>city-list-domain</module>
+    <module>city-list-rest</module>
+  </modules>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
