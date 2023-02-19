@@ -11,4 +11,6 @@ import org.mapstruct.Mapper;
 )
 public interface FileMapper {
 	File mapToEntity(FileDto fileDto);
+
+	FileDto mapToFileDto(File file);
 }

@@ -5,7 +5,6 @@ import lombok.NoArgsConstructor;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -14,21 +13,6 @@ import java.net.URL;
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class FileDownloadUtil {
-
-	/**
-	 * Download and save file to the filesystem
-	 *
-	 * @param urlString        location of the file
-	 * @param fileOutputStream stream that file will be written
-	 * @throws FileDownloadException any kind of error while saving file
-	 */
-	public static void downloadAndSave(String urlString, FileOutputStream fileOutputStream) throws FileDownloadException {
-		try {
-			fileOutputStream.write(downloadAndGetBytes(urlString));
-		} catch (Exception exception) {
-			throw new FileDownloadException(String.format("%s download error", urlString), exception);
-		}
-	}
 
 	/**
 	 * Download and get bytes of the file at given url

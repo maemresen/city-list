@@ -23,3 +23,11 @@ springdoc:
 logging:
   level:
     com.maemresen.city.list: DEBUG
+
+app:
+  batch:
+    csv-city-import:
+      photo-download-retry:
+        maxAttempts: 3
+        maxDelay: 1000
+

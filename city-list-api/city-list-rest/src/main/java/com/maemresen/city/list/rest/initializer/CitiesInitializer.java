@@ -1,4 +1,4 @@
-package com.maemresen.city.list.rest;
+package com.maemresen.city.list.rest.initializer;
 
 import com.maemresen.city.list.domain.service.CityService;
 import lombok.RequiredArgsConstructor;

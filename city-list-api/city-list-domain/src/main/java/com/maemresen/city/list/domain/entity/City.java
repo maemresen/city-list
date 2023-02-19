@@ -1,7 +1,6 @@
 package com.maemresen.city.list.domain.entity;
 
 import com.maemresen.city.list.domain.entity.base.BaseEntity;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
@@ -21,7 +20,7 @@ public class City extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(orphanRemoval = true)
 	@JoinColumn(name = "PHOTO_FILE_ID")
 	private File photoFile;
 }

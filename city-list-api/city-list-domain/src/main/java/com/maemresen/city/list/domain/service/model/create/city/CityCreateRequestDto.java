@@ -1,11 +1,12 @@
 package com.maemresen.city.list.domain.service.model.create.city;
 
-import com.maemresen.city.list.domain.service.model.FileDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,5 +16,5 @@ import lombok.Setter;
 public class CityCreateRequestDto {
 	private Long id;
 	private String name;
-	private FileDto photoFile;
+	private UUID photoFileUuid;
 }

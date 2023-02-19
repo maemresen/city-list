@@ -1,25 +1,24 @@
 package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
-import com.maemresen.city.list.commons.io.file.download.FileDownloadUtil;
 import com.maemresen.city.list.domain.entity.City;
 import com.maemresen.city.list.domain.error.exception.ServiceException;
 import com.maemresen.city.list.domain.service.CityService;
+import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
 import com.maemresen.city.list.domain.service.model.CityCsvDto;
 import com.maemresen.city.list.domain.service.model.FileDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
+import com.maemresen.city.list.domain.service.repository.FileRepository;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
-import com.maemresen.city.list.domain.util.EntityUtils;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
@@ -30,13 +29,17 @@ import java.util.UUID;
 public class CityServiceImpl implements CityService {
 
 	private final CityRepository cityRepository;
+	private final FileRepository fileRepository;
 	private final CityMapper cityMapper;
 	private final CitiesCsvReader citiesCsvReader;
+	private final FileService fileService;
 
 	@Transactional
 	@Override
 	public CityCreateResponseDto create(CityCreateRequestDto cityCreateDto) {
 		City city = cityMapper.mapToEntity(cityCreateDto);
+		UUID photoFileUuid = cityCreateDto.getPhotoFileUuid();
+		fileRepository.findByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
 		city = cityRepository.save(city);
 		return cityMapper.mapToCreateResponseDto(city);
 	}
@@ -72,30 +75,26 @@ public class CityServiceImpl implements CityService {
 	}
 
 	private void importCity(CityCsvDto cityCsvDto) {
-		String photoUrl = cityCsvDto.getPhotoUrl();
-		UUID photoFileUuid = EntityUtils.generateUUID();
-		String downloadFilePath = String.format("downloads/photo-%s", photoFileUuid.toString());
-		FileDto photoFile = null;
-		try (FileOutputStream fileOutputStream = new FileOutputStream(downloadFilePath)) {
-			byte[] photoBytes = FileDownloadUtil.downloadAndGetBytes(photoUrl);
-			fileOutputStream.write(photoBytes);
-			photoFile = FileDto.builder()
-				.uuid(photoFileUuid)
-				.build();
-		} catch (Exception exception) {
-			log.error("Failed to save photo of city with id {} and name {} from {}",
-				cityCsvDto.getId(),
-				cityCsvDto.getName(),
-				cityCsvDto.getPhotoUrl(),
-				exception);
 
+		Long id = cityCsvDto.getId();
+		String name = cityCsvDto.getName();
+		String photoUrl = cityCsvDto.getPhotoUrl();
+
+		CityCreateRequestDto cityCreateRequestDto = new CityCreateRequestDto();
+		cityCreateRequestDto.setId(id);
+		cityCreateRequestDto.setName(name);
+
+		try {
+			FileDto file = fileService.downloadFile(cityCsvDto.getPhotoUrl());
+			cityCreateRequestDto.setPhotoFileUuid(file.getUuid());
+		} catch (ServiceException exception) {
+			log.error("Could not download photo for city with id {} and name {} from {}",
+				id,
+				name,
+				photoUrl,
+				exception);
 		}
 
-		create(CityCreateRequestDto.builder()
-			.id(cityCsvDto.getId())
-			.name(cityCsvDto.getName())
-			.photoFile(photoFile)
-			.build()
-		);
+		create(cityCreateRequestDto);
 	}
 }
