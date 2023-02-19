@@ -13,6 +13,7 @@
   <modules>
     <module>city-list-domain</module>
     <module>city-list-rest</module>
+    <module>city-list-commons</module>
   </modules>
 
   <properties>
@@ -21,7 +22,11 @@
     <maven.compiler.target>17</maven.compiler.target>
     <spring.boot.version>3.0.2</spring.boot.version>
     <spring-doc.openapi.version>2.0.2</spring-doc.openapi.version>
+    <org.projectlombok.version>1.18.26</org.projectlombok.version>
+    <org.projectlombok.mapstruct-binding.version>0.2.0</org.projectlombok.mapstruct-binding.version>
     <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
+    <org.apache.commons.collections.version>4.4</org.apache.commons.collections.version>
+    <org.apache.commons.lang.version>3.12.0</org.apache.commons.lang.version>
   </properties>
 
   <dependencyManagement>
@@ -38,7 +43,32 @@
         <artifactId>city-list-domain</artifactId>
         <version>1.0.00</version>
       </dependency>
+      <dependency>
+        <groupId>com.maemresen</groupId>
+        <artifactId>city-list-commons-io</artifactId>
+        <version>1.0.00</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
+
+  <dependencies>
+    <!-- Tools -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>${org.projectlombok.version}</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
+      <version>${org.apache.commons.collections.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${org.apache.commons.lang.version}</version>
+    </dependency>
+  </dependencies>
 
 </project>

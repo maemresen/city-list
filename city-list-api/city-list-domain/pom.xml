@@ -15,6 +15,12 @@
 
 
     <dependencies>
+        <!-- Internal Dependencies -->
+        <dependency>
+            <groupId>com.maemresen</groupId>
+            <artifactId>city-list-commons-io</artifactId>
+        </dependency>
+
         <!-- WEB -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -39,21 +45,10 @@
             <artifactId>liquibase-core</artifactId>
         </dependency>
 
-        <!-- Tools -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-        </dependency>
-
         <!-- Mapstruct -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
-            <version>${org.mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct-processor</artifactId>
             <version>${org.mapstruct.version}</version>
         </dependency>
 
