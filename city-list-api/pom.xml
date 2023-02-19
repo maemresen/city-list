@@ -21,6 +21,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <spring.boot.version>3.0.2</spring.boot.version>
     <spring-doc.openapi.version>2.0.2</spring-doc.openapi.version>
+    <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
   </properties>
 
   <dependencyManagement>
