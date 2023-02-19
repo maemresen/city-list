@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: dev, cityInitializer
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/city_list_local
     username: postgres

@@ -21,7 +21,7 @@ public class City extends BaseEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinColumn(name = "PHOTO_FILE_ID")
 	private File photoFile;
 }

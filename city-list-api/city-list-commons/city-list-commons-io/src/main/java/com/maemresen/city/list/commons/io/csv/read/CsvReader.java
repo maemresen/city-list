@@ -35,9 +35,9 @@ public abstract class CsvReader<T> {
 		while ((line = bufferedReader.readLine()) != null) {
 			try {
 				data.add(getDataFromLine(line));
-				log.debug("'{}' parsed and saved successfully.", line);
+				log.debug("'{}' line parsed successfully.", line);
 			} catch (Exception exception) {
-				log.error("{} could not be parsed - Jumping to the next line.", line, exception);
+				log.error("'{}' line could not be parsed - Jumping to the next line.", line, exception);
 			}
 		}
 
