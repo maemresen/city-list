@@ -48,10 +48,22 @@ public class ServiceException extends Exception {
 	}
 
 	// ...
+	protected ServiceException(String message, ServiceError serviceError) {
+		super(message);
+		this.serviceError = serviceError;
+		this.data = null;
+	}
+
 	protected ServiceException(String message, ServiceError serviceError, Object data) {
 		super(message);
 		this.serviceError = serviceError;
 		this.data = data;
+	}
+
+	protected ServiceException(Throwable cause, ServiceError serviceError) {
+		super(cause);
+		this.serviceError = serviceError;
+		this.data = null;
 	}
 
 	protected ServiceException(Throwable cause, ServiceError serviceError, Object data) {
@@ -60,9 +72,23 @@ public class ServiceException extends Exception {
 		this.data = data;
 	}
 
+	protected ServiceException(String message, Throwable cause, ServiceError serviceError) {
+		super(message, cause);
+		this.serviceError = serviceError;
+		this.data = null;
+	}
+
 	protected ServiceException(String message, Throwable cause, ServiceError serviceError, Object data) {
 		super(message, cause);
 		this.serviceError = serviceError;
 		this.data = data;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("%s[%s]:data=%s",
+			serviceError.getCodePrefix() + serviceError.getCodeNumber(),
+			serviceError,
+			data);
 	}
 }

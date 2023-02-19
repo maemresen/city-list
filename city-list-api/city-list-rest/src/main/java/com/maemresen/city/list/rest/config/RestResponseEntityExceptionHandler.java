@@ -18,12 +18,18 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 
 	@ExceptionHandler(Throwable.class)
 	public ResponseEntity<Object> handleServiceException(Throwable throwable, WebRequest request) {
-		log.error("An error occurred while processing request {} ", request.toString(), throwable);
 
 		if (throwable instanceof ServiceException serviceException) {
+			log.error("{} occurred while processing request {} ",
+				serviceException,
+				request.toString(),
+				throwable);
 			HttpStatus httpStatus = serviceException.getServiceError().getHttpStatus();
 			return new ResponseEntity<>(GenericResponse.error(serviceException), new HttpHeaders(), httpStatus);
 		} else {
+			log.error("An occurred while processing request {} ",
+				request.toString(),
+				throwable);
 			CommonServiceError error = CommonServiceError.UN_EXPECTED_ERROR;
 			return new ResponseEntity<>(GenericResponse.error(error), new HttpHeaders(), error.getHttpStatus());
 		}
