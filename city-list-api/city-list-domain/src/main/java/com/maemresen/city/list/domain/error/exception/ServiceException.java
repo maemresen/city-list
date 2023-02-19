@@ -87,7 +87,7 @@ public class ServiceException extends Exception {
 	@Override
 	public String toString() {
 		return String.format("%s[%s]:data=%s",
-			serviceError.getCodePrefix() + serviceError.getCodeNumber(),
+			serviceError.getCode(),
 			serviceError,
 			data);
 	}

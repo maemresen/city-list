@@ -2,8 +2,7 @@ package com.maemresen.city.list.domain.service.mapper;
 
 import com.maemresen.city.list.domain.entity.City;
 import com.maemresen.city.list.domain.service.model.CityResponseDto;
-import com.maemresen.city.list.domain.service.model.create.city.CityCreateRequestDto;
-import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
+import com.maemresen.city.list.domain.service.model.CityCreateRequestDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,9 +16,6 @@ public interface CityMapper {
 	City mapToEntity(CityCreateRequestDto requestDto);
 
 	@Mapping(target = "photoFileUuid", source = "photoFile.uuid")
-	CityCreateResponseDto mapToCreateResponseDto(City city);
-
-	@Mapping(target = "photoFileUuid", source = "photoFile.uuid")
-	CityResponseDto mapToCityDto(City city);
+	CityResponseDto mapToCityResponseDto(City city);
 
 }

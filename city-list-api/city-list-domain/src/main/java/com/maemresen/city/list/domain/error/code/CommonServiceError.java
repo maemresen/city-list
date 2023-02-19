@@ -16,11 +16,6 @@ public enum CommonServiceError implements ServiceError {
 	private final int codeNumber;
 	private final HttpStatus httpStatus;
 
-	@Override
-	public String getCodePrefix() {
-		return "E00";
-	}
-
 	public static CommonServiceError getByHttpStatusCode(int httpStatusCode){
 		return Arrays.stream(values())
 			.filter(x -> x.getHttpStatus().value() == httpStatusCode)

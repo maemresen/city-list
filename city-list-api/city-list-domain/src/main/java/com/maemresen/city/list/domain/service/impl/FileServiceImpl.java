@@ -2,7 +2,7 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.file.download.FileDownloadUtil;
 import com.maemresen.city.list.domain.entity.File;
-import com.maemresen.city.list.domain.error.exception.FileIoError;
+import com.maemresen.city.list.domain.error.exception.file.FileIoException;
 import com.maemresen.city.list.domain.error.exception.ServiceException;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.FileMapper;
@@ -50,7 +50,7 @@ public class FileServiceImpl implements FileService {
 		try (InputStream fileInputStream = new FileInputStream("downloads/" + uuid)) {
 			IOUtils.copy(fileInputStream, outputStream);
 		} catch (Exception e) {
-			throw new FileIoError("Failed to reach file with " + uuid, e);
+			throw new FileIoException("Failed to reach file with " + uuid, e);
 		}
 	}
 }

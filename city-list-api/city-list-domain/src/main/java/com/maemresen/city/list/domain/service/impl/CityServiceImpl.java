@@ -3,14 +3,16 @@ package com.maemresen.city.list.domain.service.impl;
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.entity.City;
 import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.city.CityNotFoundException;
+import com.maemresen.city.list.domain.error.exception.city.InvalidCityNameException;
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
+import com.maemresen.city.list.domain.service.model.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.CityCsvDto;
 import com.maemresen.city.list.domain.service.model.CityResponseDto;
+import com.maemresen.city.list.domain.service.model.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.service.model.FileDto;
-import com.maemresen.city.list.domain.service.model.create.city.CityCreateRequestDto;
-import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
 import com.maemresen.city.list.domain.service.specification.CitySearchSpecification;
@@ -19,6 +21,7 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -41,18 +44,36 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	@Override
-	public CityCreateResponseDto create(CityCreateRequestDto cityCreateDto) {
+	public CityResponseDto create(CityCreateRequestDto cityCreateDto) {
 		City city = cityMapper.mapToEntity(cityCreateDto);
 		UUID photoFileUuid = cityCreateDto.getPhotoFileUuid();
 		fileRepository.findByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
 		city = cityRepository.save(city);
-		return cityMapper.mapToCreateResponseDto(city);
+		return cityMapper.mapToCityResponseDto(city);
+	}
+
+	@Transactional
+	@Override
+	public CityResponseDto update(CityUpdateRequestDto cityUpdateRequestDto) throws ServiceException{
+		Long id = cityUpdateRequestDto.getId();
+
+		City existingCity = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
+
+		String name = cityUpdateRequestDto.getName();
+		if(StringUtils.isBlank(name)){
+			throw new InvalidCityNameException();
+		}
+
+		existingCity.setName(name);
+
+		City updatedCity = cityRepository.save(existingCity);
+		return cityMapper.mapToCityResponseDto(updatedCity);
 	}
 
 	@Override
 	public Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> reqestParamMap){
 		return cityRepository.findAll(new CitySearchSpecification(reqestParamMap), pageable)
-			.map(cityMapper::mapToCityDto);
+			.map(cityMapper::mapToCityResponseDto);
 	}
 
 	@Override

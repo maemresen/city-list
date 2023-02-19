@@ -1,14 +1,19 @@
 package com.maemresen.city.list.rest.controller;
 
+import com.maemresen.city.list.domain.error.exception.ServiceException;
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.model.CityResponseDto;
+import com.maemresen.city.list.domain.service.model.CityUpdateRequestDto;
 import com.maemresen.city.list.rest.config.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +32,11 @@ public class CityController {
 	@GetMapping
 	public GenericResponse<Page<CityResponseDto>> findAll(Pageable pageable, @RequestParam Map<String, String> reqestParamMap) {
 		return GenericResponse.ok(cityService.findAll(pageable, reqestParamMap));
+	}
+
+	@Operation(summary = "Update City")
+	@PutMapping
+	public GenericResponse<CityResponseDto> update(@RequestBody @Valid CityUpdateRequestDto requestDto) throws ServiceException {
+		return GenericResponse.ok(cityService.update(requestDto));
 	}
 }

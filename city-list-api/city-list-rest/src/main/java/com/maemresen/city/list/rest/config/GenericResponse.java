@@ -38,7 +38,7 @@ public class GenericResponse<T> {
 			.timestamp(LocalDateTime.now())
 			.message("Error")
 			.data(data)
-			.errorCode(String.format("%s%d", serviceError.getCodePrefix(), serviceError.getCodeNumber()))
+			.errorCode(serviceError.getCode())
 			.build();
 	}
 

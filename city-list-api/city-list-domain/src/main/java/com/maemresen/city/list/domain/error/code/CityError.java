@@ -6,9 +6,11 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 @RequiredArgsConstructor
-public enum FileError implements ServiceError{
-	FILE_IO_ERROR(1, HttpStatus.INTERNAL_SERVER_ERROR);
+public enum CityError implements ServiceError{
+	CITY_NOT_FOUND(1, HttpStatus.INTERNAL_SERVER_ERROR),
+	INVALID_CITY_NAME(2, HttpStatus.INTERNAL_SERVER_ERROR);
 
 	private final int codeNumber;
 	private final HttpStatus httpStatus;
+
 }

@@ -1,11 +1,10 @@
-package com.maemresen.city.list.domain.service.model.create.city;
+package com.maemresen.city.list.domain.service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.UUID;
 
@@ -14,8 +13,8 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
-public class CityCreateResponseDto {
+public class CityCreateRequestDto {
+	private Long id;
 	private String name;
 	private UUID photoFileUuid;
 }
