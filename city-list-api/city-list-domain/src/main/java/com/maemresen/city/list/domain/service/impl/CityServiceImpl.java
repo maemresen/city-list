@@ -7,6 +7,7 @@ import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
 import com.maemresen.city.list.domain.service.model.CityCsvDto;
+import com.maemresen.city.list.domain.service.model.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.FileDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
@@ -17,6 +18,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
@@ -42,6 +45,11 @@ public class CityServiceImpl implements CityService {
 		fileRepository.findByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
 		city = cityRepository.save(city);
 		return cityMapper.mapToCreateResponseDto(city);
+	}
+
+	@Override
+	public Page<CityResponseDto> findAll(Pageable pageable){
+		return cityRepository.findAll(pageable).map(cityMapper::mapToCityDto);
 	}
 
 	@Override

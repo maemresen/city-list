@@ -1,3 +1,4 @@
+
 spring:
   profiles:
     active: dev, cityInitializer
@@ -30,4 +31,6 @@ app:
       photo-download-retry:
         maxAttempts: 3
         maxDelay: 1000
-
+server:
+  servlet:
+    context-path: /api

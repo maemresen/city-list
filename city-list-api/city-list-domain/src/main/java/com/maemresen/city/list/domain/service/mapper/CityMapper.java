@@ -1,6 +1,7 @@
 package com.maemresen.city.list.domain.service.mapper;
 
 import com.maemresen.city.list.domain.entity.City;
+import com.maemresen.city.list.domain.service.model.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.create.city.CityCreateResponseDto;
 import org.mapstruct.Builder;
@@ -17,4 +18,8 @@ public interface CityMapper {
 
 	@Mapping(target = "photoFileUuid", source = "photoFile.uuid")
 	CityCreateResponseDto mapToCreateResponseDto(City city);
+
+	@Mapping(target = "photoFileUuid", source = "photoFile.uuid")
+	CityResponseDto mapToCityDto(City city);
+
 }
