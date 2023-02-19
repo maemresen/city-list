@@ -1,10 +1,8 @@
 package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
-import com.maemresen.city.list.commons.io.file.download.FileDownloadException;
 import com.maemresen.city.list.commons.io.file.download.FileDownloadUtil;
 import com.maemresen.city.list.domain.entity.City;
-import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.error.exception.ServiceException;
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
@@ -22,7 +20,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;

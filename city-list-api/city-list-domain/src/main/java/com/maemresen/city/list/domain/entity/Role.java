@@ -1,7 +1,6 @@
 package com.maemresen.city.list.domain.entity;
 
 import com.maemresen.city.list.domain.entity.base.BaseEntity;
-import com.maemresen.city.list.domain.entity.base.BaseUuidEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
