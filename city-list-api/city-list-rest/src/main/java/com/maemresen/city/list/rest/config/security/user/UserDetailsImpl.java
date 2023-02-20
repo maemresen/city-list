@@ -1,4 +1,4 @@
-package com.maemresen.city.list.rest.config.security;
+package com.maemresen.city.list.rest.config.security.user;
 
 import com.maemresen.city.list.domain.entity.User;
 import lombok.Getter;
@@ -8,8 +8,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Objects;
 
+/**
+ * App specific implementation of SpringSecurity user representation.
+ */
 public class UserDetailsImpl implements UserDetails {
 
 	private User user;

@@ -1,6 +1,5 @@
-package com.maemresen.city.list.rest.config.security;
+package com.maemresen.city.list.rest.config.security.user;
 
-import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Custom implementation to tell Spring Security about how and where user's should be fetched to apply authentication.
+ */
 @RequiredArgsConstructor
 @Service
 public class CustomUserDetailsServiceImpl implements UserDetailsService {

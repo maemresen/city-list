@@ -18,9 +18,6 @@ spring:
     enabled: true
     change-log: classpath:liquibase/changelog.xml
     contexts: ${spring.profiles.active}
-springdoc:
-  swagger-ui:
-    path: /documentation
 
 logging:
   level:
@@ -33,6 +30,11 @@ app:
         maxAttempts: 3
         maxDelay: 1000
   security:
+    paths:
+      public-paths:
+        - /v3/api-docs/**
+        - /swagger-ui/**
+        - /swagger-ui.html
     jwt:
       secret: jwt-secret-key
       expiration-ms: 86400000

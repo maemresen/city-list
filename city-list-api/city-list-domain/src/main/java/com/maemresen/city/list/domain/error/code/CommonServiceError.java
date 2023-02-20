@@ -11,7 +11,8 @@ import java.util.Arrays;
 public enum CommonServiceError implements ServiceError {
 	UN_EXPECTED_ERROR(1, HttpStatus.INTERNAL_SERVER_ERROR),
 	SERVICE_ERROR(2, HttpStatus.INTERNAL_SERVER_ERROR),
-	BAD_REQUEST(3, HttpStatus.BAD_REQUEST);
+	BAD_REQUEST(3, HttpStatus.BAD_REQUEST),
+	UN_AUTHORIZED(4, HttpStatus.UNAUTHORIZED);
 
 	private final int codeNumber;
 	private final HttpStatus httpStatus;
