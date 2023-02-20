@@ -1,8 +1,8 @@
 package com.maemresen.city.list.domain.service.mapper;
 
 import com.maemresen.city.list.domain.entity.City;
-import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

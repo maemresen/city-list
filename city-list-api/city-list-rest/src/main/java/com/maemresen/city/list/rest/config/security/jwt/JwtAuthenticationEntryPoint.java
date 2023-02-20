@@ -1,7 +1,6 @@
 package com.maemresen.city.list.rest.config.security.jwt;
 
 import com.maemresen.city.list.domain.error.code.AuthError;
-import com.maemresen.city.list.domain.error.code.CommonServiceError;
 import com.maemresen.city.list.rest.config.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

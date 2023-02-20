@@ -1,6 +1,5 @@
 package com.maemresen.city.list.domain.service.impl;
 
-import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.service.JwtService;
 import com.maemresen.city.list.domain.service.model.UserDetailsImpl;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
