@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Getter
 @Setter
@@ -17,16 +17,20 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class GenericResponse<T> {
-	private LocalDateTime timestamp;
+	private long timestamp;
 	private String message;
 	private T data;
 
 	@JsonInclude(value = JsonInclude.Include.NON_NULL)
 	private String errorCode;
 
+	private static long getNow(){
+		return new Timestamp(System.currentTimeMillis()).getTime();
+	}
+
 	public static <R> GenericResponse<R> ok(R data) {
 		return GenericResponse.<R>builder()
-			.timestamp(LocalDateTime.now())
+			.timestamp(getNow())
 			.message("Success")
 			.data(data)
 			.build();
@@ -34,7 +38,7 @@ public class GenericResponse<T> {
 
 	public static <R> GenericResponse<R> error(ServiceError serviceError, R data) {
 		return GenericResponse.<R>builder()
-			.timestamp(LocalDateTime.now())
+			.timestamp(getNow())
 			.message("Error")
 			.data(data)
 			.errorCode(serviceError.getCode())
