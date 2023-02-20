@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum JwtCustomClaim {
-	USER_UUID(true);
+	USER_UUID(true),
+
+	USER_ROLE(true);
 
 	private final boolean required;
 }

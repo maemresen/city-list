@@ -45,6 +45,7 @@ public class JwtServiceImpl implements JwtService {
 			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, jwtProps.getSecret())
 			.claim(JwtCustomClaim.USER_UUID.name(), userPrincipal.getUuid())
+			.claim(JwtCustomClaim.USER_ROLE.name(), userPrincipal.getRoleName())
 			.compact();
 	}
 

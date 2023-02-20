@@ -1,6 +1,7 @@
 package com.maemresen.city.list.domain.service.model;
 
 import com.maemresen.city.list.domain.entity.User;
+import com.maemresen.city.list.domain.entity.enums.RoleEnum;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,6 +16,7 @@ import java.util.UUID;
  */
 public class UserDetailsImpl implements UserDetails {
 
+	@Getter
 	private final User user;
 
 	@Getter
@@ -57,5 +59,9 @@ public class UserDetailsImpl implements UserDetails {
 
 	public UUID getUuid(){
 		return this.user.getUuid();
+	}
+
+	public RoleEnum getRoleName(){
+		return this.user.getRole().getName();
 	}
 }
