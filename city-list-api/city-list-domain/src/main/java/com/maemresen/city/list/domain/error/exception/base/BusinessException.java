@@ -1,9 +1,9 @@
-package com.maemresen.city.list.domain.error.exception;
+package com.maemresen.city.list.domain.error.exception.base;
 
 
 import com.maemresen.city.list.domain.error.code.ServiceError;
 
-public class BusinessException extends ServiceException {
+public abstract class BusinessException extends ServiceException {
 
 	protected BusinessException(String message, ServiceError serviceError) {
 		super(message, serviceError, null);

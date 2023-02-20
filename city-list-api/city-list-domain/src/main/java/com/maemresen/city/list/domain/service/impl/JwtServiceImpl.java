@@ -1,8 +1,10 @@
 package com.maemresen.city.list.domain.service.impl;
 
+import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.service.JwtService;
 import com.maemresen.city.list.domain.service.model.UserDetailsImpl;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
+import com.maemresen.city.list.domain.util.constants.JwtCustomClaim;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
@@ -43,6 +45,7 @@ public class JwtServiceImpl implements JwtService {
 			.setIssuedAt(issuedAtDate)
 			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, jwtProps.getSecret())
+			.claim(JwtCustomClaim.USER_UUID.name(), userPrincipal.getUuid())
 			.compact();
 	}
 
@@ -56,10 +59,9 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public boolean validateJwtToken(String jwt) {
+	public void validateJwtToken(String jwt) {
 		try {
 			Jwts.parser().setSigningKey(jwtProps.getSecret()).parseClaimsJws(jwt);
-			return true;
 		} catch (SignatureException e) {
 			log.error("Invalid JWT signature", e);
 		} catch (MalformedJwtException e) {
@@ -71,6 +73,5 @@ public class JwtServiceImpl implements JwtService {
 		} catch (IllegalArgumentException e) {
 			log.error("JWT claims string is empty", e);
 		}
-		return false;
 	}
 }

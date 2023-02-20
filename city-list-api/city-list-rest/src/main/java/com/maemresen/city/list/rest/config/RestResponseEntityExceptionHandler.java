@@ -1,7 +1,7 @@
 package com.maemresen.city.list.rest.config;
 
 import com.maemresen.city.list.domain.error.code.CommonServiceError;
-import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

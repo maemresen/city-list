@@ -7,5 +7,5 @@ public interface JwtService {
 
 	String getUserNameFromJwtToken(String token);
 
-	boolean validateJwtToken(String jwt);
+	void validateJwtToken(String jwt);
 }

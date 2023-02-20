@@ -2,7 +2,7 @@ package com.maemresen.city.list.rest.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.maemresen.city.list.domain.error.code.ServiceError;
-import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -31,7 +31,6 @@ public class GenericResponse<T> {
 			.data(data)
 			.build();
 	}
-
 
 	public static <R> GenericResponse<R> error(ServiceError serviceError, R data) {
 		return GenericResponse.<R>builder()

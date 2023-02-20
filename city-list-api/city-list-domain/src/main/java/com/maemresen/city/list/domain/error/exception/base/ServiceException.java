@@ -1,4 +1,4 @@
-package com.maemresen.city.list.domain.error.exception;
+package com.maemresen.city.list.domain.error.exception.base;
 
 import com.maemresen.city.list.domain.error.code.CommonServiceError;
 import com.maemresen.city.list.domain.error.code.ServiceError;

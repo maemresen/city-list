@@ -8,13 +8,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.UUID;
 
 /**
  * App specific implementation of SpringSecurity user representation.
  */
 public class UserDetailsImpl implements UserDetails {
 
-	private User user;
+	private final User user;
 
 	@Getter
 	private final Collection<? extends GrantedAuthority> authorities;
@@ -52,5 +53,9 @@ public class UserDetailsImpl implements UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
+	}
+
+	public UUID getUuid(){
+		return this.user.getUuid();
 	}
 }

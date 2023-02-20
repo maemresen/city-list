@@ -1,6 +1,6 @@
 package com.maemresen.city.list.rest.controller;
 
-import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import com.maemresen.city.list.domain.service.FileService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

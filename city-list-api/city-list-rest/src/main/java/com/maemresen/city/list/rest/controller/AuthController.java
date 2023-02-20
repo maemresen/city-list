@@ -1,5 +1,6 @@
 package com.maemresen.city.list.rest.controller;
 
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import com.maemresen.city.list.domain.service.AuthService;
 import com.maemresen.city.list.domain.service.model.dto.LoginRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.TokenResponseDto;
@@ -19,7 +20,7 @@ public class AuthController {
 	private final AuthService authService;
 
 	@PostMapping("login")
-	public GenericResponse<TokenResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) {
+	public GenericResponse<TokenResponseDto> login(@RequestBody @Valid LoginRequestDto loginRequestDto) throws ServiceException {
 		return GenericResponse.ok(authService.login(loginRequestDto));
 	}
 }

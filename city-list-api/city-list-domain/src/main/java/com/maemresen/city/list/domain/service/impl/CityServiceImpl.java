@@ -2,7 +2,7 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.entity.City;
-import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import com.maemresen.city.list.domain.error.exception.city.CityNotFoundException;
 import com.maemresen.city.list.domain.error.exception.city.InvalidCityNameException;
 import com.maemresen.city.list.domain.service.CityService;

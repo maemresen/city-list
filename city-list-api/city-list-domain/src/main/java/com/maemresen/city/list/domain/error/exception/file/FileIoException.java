@@ -1,7 +1,7 @@
 package com.maemresen.city.list.domain.error.exception.file;
 
 import com.maemresen.city.list.domain.error.code.FileError;
-import com.maemresen.city.list.domain.error.exception.ServiceException;
+import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 
 public class FileIoException extends ServiceException {
 

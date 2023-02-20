@@ -1,5 +1,6 @@
 package com.maemresen.city.list.rest.config.security.jwt;
 
+import com.maemresen.city.list.domain.error.code.AuthError;
 import com.maemresen.city.list.domain.error.code.CommonServiceError;
 import com.maemresen.city.list.rest.config.ServletUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 	@Override
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
 		log.error("Unauthorized error", authException);
-		ServletUtils.setErrorResponse(response, CommonServiceError.UN_AUTHORIZED);
+		ServletUtils.setErrorResponse(response, AuthError.UNAUTHORIZED);
 	}
 }
