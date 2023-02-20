@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "CITY")
+@Table(schema = "PUBLIC", name = "CITY")
 @Entity
 public class City extends BaseEntity {
 

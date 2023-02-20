@@ -1,6 +1,8 @@
 package com.maemresen.city.list.rest.config.security.jwt;
 
-import com.maemresen.city.list.rest.config.security.user.CustomUserDetailsServiceImpl;
+import com.maemresen.city.list.domain.service.JwtService;
+import com.maemresen.city.list.domain.service.impl.CustomUserDetailsServiceImpl;
+import com.maemresen.city.list.domain.service.model.prop.security.path.PathProps;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +19,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * Request filter to check JWT included into HTTP request, validate and authenticate if possible
@@ -27,6 +28,9 @@ import java.util.Optional;
 @Component
 public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
 
+	private static final String BEARER_TOKEN_PREFIX = "Bearer ";
+
+	private final PathProps pathProps;
 	private final JwtService jwtService;
 	private final CustomUserDetailsServiceImpl customUserDetailsService;
 
@@ -43,12 +47,12 @@ public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
 	}
 
 	private void handleJwt(HttpServletRequest request) {
-		Optional<String> optionalJwt = parseJwt(request);
-		if (optionalJwt.isEmpty()) {
+		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+		if (StringUtils.isBlank(authorizationHeader)) {
 			return;
 		}
 
-		String jwt = optionalJwt.get();
+		String jwt = authorizationHeader.substring(BEARER_TOKEN_PREFIX.length());
 		jwtService.validateJwtToken(jwt);
 
 		String username = jwtService.getUserNameFromJwtToken(jwt);
@@ -56,12 +60,5 @@ public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
-	}
-
-	private Optional<String> parseJwt(HttpServletRequest request) {
-		return Optional.of(request.getHeader(HttpHeaders.AUTHORIZATION))
-			.filter(StringUtils::isNotBlank)
-			.filter(header -> header.startsWith("Bearer "))
-			.map(header -> header.substring(7));
 	}
 }

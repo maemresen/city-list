@@ -32,9 +32,13 @@ app:
   security:
     paths:
       public-paths:
-        - /v3/api-docs/**
-        - /swagger-ui/**
-        - /swagger-ui.html
+        all:
+          - /v3/api-docs/**
+          - /swagger-ui/**
+          - /swagger-ui.html
+        by-http-method:
+          POST:
+            - /auth/login
     jwt:
       secret: jwt-secret-key
       expiration-ms: 86400000

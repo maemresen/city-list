@@ -1,5 +1,6 @@
-package com.maemresen.city.list.rest.config.security.user;
+package com.maemresen.city.list.domain.service.impl;
 
+import com.maemresen.city.list.domain.service.model.UserDetailsImpl;
 import com.maemresen.city.list.domain.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

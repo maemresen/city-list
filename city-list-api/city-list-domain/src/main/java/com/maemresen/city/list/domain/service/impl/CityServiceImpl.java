@@ -8,11 +8,11 @@ import com.maemresen.city.list.domain.error.exception.city.InvalidCityNameExcept
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
-import com.maemresen.city.list.domain.service.model.CityCreateRequestDto;
-import com.maemresen.city.list.domain.service.model.CityCsvDto;
-import com.maemresen.city.list.domain.service.model.CityResponseDto;
-import com.maemresen.city.list.domain.service.model.CityUpdateRequestDto;
-import com.maemresen.city.list.domain.service.model.FileDto;
+import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.CityCsvDto;
+import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
+import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
 import com.maemresen.city.list.domain.service.specification.CitySearchSpecification;

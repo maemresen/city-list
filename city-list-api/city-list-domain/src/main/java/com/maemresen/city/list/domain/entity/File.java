@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @SuperBuilder
 @AllArgsConstructor
-@Table(name = "FILE")
+@Table(schema = "PUBLIC", name = "FILE")
 @Entity
 public class File extends BaseUuidEntity {
 }

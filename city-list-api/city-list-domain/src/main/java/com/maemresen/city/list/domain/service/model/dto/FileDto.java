@@ -1,4 +1,4 @@
-package com.maemresen.city.list.domain.service.model;
+package com.maemresen.city.list.domain.service.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,8 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityCreateRequestDto {
-	private Long id;
-	private String name;
-	private UUID photoFileUuid;
+public class FileDto {
+
+	private UUID uuid;
 }

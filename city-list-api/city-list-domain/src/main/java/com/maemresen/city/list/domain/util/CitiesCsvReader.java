@@ -2,7 +2,7 @@ package com.maemresen.city.list.domain.util;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.commons.io.csv.read.CsvReader;
-import com.maemresen.city.list.domain.service.model.CityCsvDto;
+import com.maemresen.city.list.domain.service.model.dto.CityCsvDto;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package com.maemresen.city.list.domain.service.model;
+package com.maemresen.city.list.domain.service.model.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,11 +13,17 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityUpdateRequestDto {
-
-	@NotNull
-	private Long id;
+public class TokenResponseDto {
 
 	@NotBlank
-	private String name;
+	private String token;
+
+	@NotNull
+	private long tokenExpirationTime;
+
+	@NotBlank
+	private String refreshToken;
+
+	@NotNull
+	private int refreshTokenExpirationTime;
 }

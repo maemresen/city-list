@@ -6,7 +6,7 @@ import com.maemresen.city.list.domain.error.exception.file.FileIoException;
 import com.maemresen.city.list.domain.error.exception.ServiceException;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.FileMapper;
-import com.maemresen.city.list.domain.service.model.FileDto;
+import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
 import com.maemresen.city.list.domain.util.EntityUtils;
 import lombok.RequiredArgsConstructor;

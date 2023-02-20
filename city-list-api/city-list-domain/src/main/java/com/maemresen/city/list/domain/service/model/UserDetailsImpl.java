@@ -1,4 +1,4 @@
-package com.maemresen.city.list.rest.config.security.user;
+package com.maemresen.city.list.domain.service.model;
 
 import com.maemresen.city.list.domain.entity.User;
 import lombok.Getter;

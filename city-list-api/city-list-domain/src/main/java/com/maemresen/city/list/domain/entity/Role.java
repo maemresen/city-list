@@ -14,7 +14,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "ROLE")
+@Table(schema = "PUBLIC", name = "ROLE")
 @Entity
 public class Role extends BaseEntity {
 

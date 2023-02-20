@@ -1,4 +1,4 @@
-package com.maemresen.city.list.rest.config.security.prop;
+package com.maemresen.city.list.domain.service.model.prop.security.jwt;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

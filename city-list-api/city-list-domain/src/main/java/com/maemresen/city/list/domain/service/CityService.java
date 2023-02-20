@@ -1,9 +1,9 @@
 package com.maemresen.city.list.domain.service;
 
 import com.maemresen.city.list.domain.error.exception.ServiceException;
-import com.maemresen.city.list.domain.service.model.CityResponseDto;
-import com.maemresen.city.list.domain.service.model.CityCreateRequestDto;
-import com.maemresen.city.list.domain.service.model.CityUpdateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
+import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

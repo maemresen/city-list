@@ -1,4 +1,4 @@
-package com.maemresen.city.list.rest.config.security.prop;
+package com.maemresen.city.list.domain.service.model.prop.security.path;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,5 +12,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "app.security.paths")
 public class PathProps {
-	private String[] publicPaths;
+	private PathAllowStatus publicPaths;
 }

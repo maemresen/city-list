@@ -1,7 +1,7 @@
 package com.maemresen.city.list.domain.service;
 
 import com.maemresen.city.list.domain.error.exception.ServiceException;
-import com.maemresen.city.list.domain.service.model.FileDto;
+import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 
