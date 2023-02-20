@@ -11,18 +11,17 @@ import java.util.UUID;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class SecurityHelper {
 
-
-	public UUID getAuthUserUuid(){
+	public static UUID getAuthUserUuid(){
 		return getAuthUserDetails().getUuid();
 	}
 
-	public User getAuthUser(){
+	public static User getAuthUser(){
 		return getAuthUserDetails().getUser();
 	}
 
-	public UserDetailsImpl getAuthUserDetails(){
+	public static UserDetailsImpl getAuthUserDetails(){
 		return (UserDetailsImpl) SecurityContextHolder.getContext()
 			.getAuthentication()
-			.getDetails();
+			.getPrincipal();
 	}
 }
