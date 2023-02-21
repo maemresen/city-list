@@ -22,10 +22,7 @@ export default function SignIn() {
   const [password, setPassword] = useState(null);
 
   const signIn = () => {
-    authService.signIn('admin', 'admin').then(({ accessToken, refreshToken }) => {
-      Cookies.set(COOKIE_KEY.ACCESS_TOKEN, accessToken);
-      Cookies.set(COOKIE_KEY.REFRESH_TOKEN, refreshToken);
-    }).then(() => navigate(ROUTES.CITIES.path));
+    authService.signIn('admin', 'admin').then(() => navigate(ROUTES.CITIES.path));
   };
 
   return (
