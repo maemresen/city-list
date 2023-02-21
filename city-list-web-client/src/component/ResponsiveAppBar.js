@@ -64,20 +64,26 @@ function ResponsiveAppBar({ leftItems }) {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {leftItems.filter(({ isPublic }) => isPublic || isAuthenticated).map(({ name, path }) => (
-              <Button key={name} sx={{ my: 2, color: 'white', display: 'block' }}>
-                <AppBarLink to={path}>
-                  {name}
-                </AppBarLink>
-              </Button>
-            ))}
+            {leftItems.filter(({ isPublic }) => isPublic || isAuthenticated)
+              .map(({ name, path }) => (
+                <Button key={name} sx={{ my: 2, color: 'white', display: 'block' }}>
+                  <AppBarLink to={path}>
+                    {name}
+                  </AppBarLink>
+                </Button>
+              ))}
 
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <Button color="secondary" onClick={() => (isAuthenticated ? signOut() : navigate(ROUTE_PATHS.SIGN_IN))}>
-                {isAuthenticated ? 'Sign Out' : 'Sign In'}
+              <Button
+                sx={{ my: 2, color: 'white', display: 'block' }}
+                onClick={() => (isAuthenticated ? signOut() : navigate(ROUTE_PATHS.SIGN_IN))}
+              >
+                <AppBarLink>
+                  {isAuthenticated ? 'Sign Out' : 'Sign In'}
+                </AppBarLink>
               </Button>
             </Tooltip>
           </Box>
