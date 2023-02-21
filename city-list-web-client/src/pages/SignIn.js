@@ -1,10 +1,8 @@
 import { Button, Container, TextField } from '@mui/material';
 import styled from '@emotion/styled';
 import { useState } from 'react';
-import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
-import authService from '../service/authService';
-import COOKIE_KEY from '../utils/constants/cookieKeys';
+import useAuth from '../hook/useAuth';
 import ROUTES from '../utils/constants/routes';
 
 const StyledContainer = styled(Container)`
@@ -16,20 +14,20 @@ const StyledTextField = styled(TextField)`
 `;
 
 export default function SignIn() {
+  const { signIn, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+
+  if (isAuthenticated) {
+    navigate(ROUTES.HOME.path);
+  }
 
   const [username, setUserName] = useState(null);
   const [password, setPassword] = useState(null);
-
-  const signIn = () => {
-    authService.signIn('admin', 'admin').then(() => navigate(ROUTES.CITIES.path));
-  };
-
   return (
     <StyledContainer maxWidth="xs" mar>
       <StyledTextField id="username" label="Username" variant="outlined" fullWidth value={username} />
       <StyledTextField id="password" label="Password" variant="outlined" fullWidth value={password} />
-      <Button variant="contained" onClick={signIn}>Sign In</Button>
+      <Button variant="contained" onClick={() => signIn(username, password)}>Sign In</Button>
     </StyledContainer>
   );
 }
