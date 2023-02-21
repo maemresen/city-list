@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom';
 import * as React from 'react';
 import Container from '@mui/material/Container';
 import NAVBAR_ITEMS from '../utils/constants/navbarItems';
-import ResponsiveAppBar from "../component/ResponsiveAppBar/ResponsiveAppBar";
+import ResponsiveAppBar from "../component/ResponsiveAppBar";
 
 export default function Layout() {
   return (

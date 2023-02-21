@@ -1,5 +1,5 @@
 import Home from '../../pages/Home';
-import Login from '../../pages/Login';
+import SignIn from '../../pages/SignIn';
 import Cities from '../../pages/Citiies';
 
 const ROUTES = Object.freeze({
@@ -10,11 +10,11 @@ const ROUTES = Object.freeze({
     component: <Home />,
     index: true,
   },
-  LOGIN: {
-    key: 'login',
-    name: 'Login',
-    path: '/login',
-    component: <Login />,
+  SIGN_IN: {
+    key: 'sign-in',
+    name: 'SignIn',
+    path: '/sign-in',
+    component: <SignIn />,
   },
   CITIES: {
     key: 'cities',

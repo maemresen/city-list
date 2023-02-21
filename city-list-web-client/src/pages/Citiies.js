@@ -1,7 +1,11 @@
+import Authorized from "../component/PrivatePage";
+
 export default function Cities() {
   return (
-    <div>
-      cities
-    </div>
+    <Authorized>
+        <div>
+            cities
+        </div>
+    </Authorized>
   );
 }
