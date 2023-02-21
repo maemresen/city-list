@@ -21,8 +21,8 @@ public class User extends BaseUuidEntity {
 	@JoinColumn(name = "ROLE_ID")
 	private Role role;
 
-	@Column(name = "USER_NAME")
-	private String userName;
+	@Column(name = "USERNAME")
+	private String username;
 
 	private String password;
 

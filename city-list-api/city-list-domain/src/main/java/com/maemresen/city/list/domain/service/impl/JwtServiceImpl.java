@@ -1,7 +1,7 @@
 package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.domain.service.JwtService;
-import com.maemresen.city.list.domain.service.model.UserDetailsImpl;
+import com.maemresen.city.list.domain.service.UserService;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
 import com.maemresen.city.list.domain.util.constants.JwtCustomClaim;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -12,10 +12,10 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.UUID;
 
 /**
  * Helper service to deal with some JWT related stuff
@@ -29,23 +29,19 @@ public class JwtServiceImpl implements JwtService {
 	private final JwtProps jwtProps;
 
 	@Override
-	public String generateJwtToken(Authentication authentication) {
-
-		UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
-
-		String subject = userPrincipal.getUsername();
+	public String generateJwtToken(String username, UUID userUuid, String userRoleName) {
 		Date issuedAtDate = new Date();
 
-		long expirationTime = issuedAtDate.getTime() + jwtProps.getExpirationMs();
+		long expirationTime = issuedAtDate.getTime() + jwtProps.getAccessTokenExpirationMs();
 		Date expirationDate = new Date(expirationTime);
 
 		return Jwts.builder()
-			.setSubject(subject)
+			.setSubject(username)
 			.setIssuedAt(issuedAtDate)
 			.setExpiration(expirationDate)
 			.signWith(SignatureAlgorithm.HS512, jwtProps.getSecret())
-			.claim(JwtCustomClaim.USER_UUID.name(), userPrincipal.getUuid())
-			.claim(JwtCustomClaim.USER_ROLE.name(), userPrincipal.getRoleName())
+			.claim(JwtCustomClaim.USER_UUID.name(), userUuid.toString())
+			.claim(JwtCustomClaim.USER_ROLE.name(), userRoleName)
 			.compact();
 	}
 

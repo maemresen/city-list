@@ -1,9 +1,9 @@
 package com.maemresen.city.list.domain.service;
 
-import org.springframework.security.core.Authentication;
+import java.util.UUID;
 
 public interface JwtService {
-	String generateJwtToken(Authentication authentication);
+	String generateJwtToken(String username, UUID userUuid, String userRoleName);
 
 	String getUserNameFromJwtToken(String token);
 

@@ -1,12 +1,12 @@
 package com.maemresen.city.list.domain.service.model.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,15 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TokenResponseDto {
 
-	@NotBlank
-	private String token;
+	private String accessToken;
 
-	@NotNull
-	private long tokenExpirationTime;
-
-	@NotBlank
-	private String refreshToken;
-
-	@NotNull
-	private int refreshTokenExpirationTime;
+	private UUID refreshToken;
 }

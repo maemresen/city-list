@@ -49,10 +49,12 @@ app:
           - /swagger-ui.html
         by-http-method:
           POST:
-            - /auth/login
+            - /auth/sign-in
+            - /auth/refresh-token
     jwt:
       secret: jwt-secret-key
-      expiration-ms: 86400000
+      access-token-expiration-ms: 3600000
+      refresh-token-expiration-ms: 86400000
 server:
   servlet:
     context-path: /api

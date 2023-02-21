@@ -1,0 +1,63 @@
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="v0.00-initial" author="SYSTEM">
+        <sql>
+            CREATE TABLE PUBLIC.FILE
+            (
+                ID   BIGSERIAL PRIMARY KEY,
+                UUID UUID UNIQUE
+            );
+
+            CREATE TABLE PUBLIC.ROLE
+            (
+                ID   BIGSERIAL PRIMARY KEY,
+                NAME VARCHAR(255) NOT NULL UNIQUE
+            );
+
+            CREATE TABLE PUBLIC.CITY
+            (
+                ID            BIGSERIAL PRIMARY KEY,
+                PHOTO_FILE_ID BIGINT,
+                NAME          VARCHAR(255) NOT NULL,
+                FOREIGN KEY (PHOTO_FILE_ID) REFERENCES FILE (ID)
+            );
+
+            CREATE TABLE PUBLIC.USER
+            (
+                ID         BIGSERIAL PRIMARY KEY,
+                ROLE_ID    BIGINT       NOT NULL,
+                UUID       UUID UNIQUE,
+                USERNAME   VARCHAR(50)  NOT NULL,
+                PASSWORD   VARCHAR(255) NOT NULL,
+                FIRST_NAME VARCHAR(255) NOT NULL,
+                LAST_NAME  VARCHAR(255) NOT NULL,
+                FOREIGN KEY (ROLE_ID) REFERENCES ROLE (ID)
+            );
+
+            CREATE TABLE PUBLIC.REFRESH_TOKEN
+            (
+                ID          BIGSERIAL PRIMARY KEY,
+                USER_ID     BIGINT,
+                TOKEN       UUID NOT NULL UNIQUE,
+                EXPIRY_DATE TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+                FOREIGN KEY (USER_ID) REFERENCES PUBLIC.USER (ID)
+            );
+        </sql>
+    </changeSet>
+    <changeSet id="v0.01-init1_roles" author="SYSTEM">
+        <sql>
+            INSERT INTO PUBLIC.ROLE(NAME) VALUES ('ROLE_ADMIN');
+            INSERT INTO PUBLIC.ROLE(NAME) VALUES ('ROLE_ALLOW_EDIT');
+            INSERT INTO PUBLIC.ROLE(NAME) VALUES ('ROLE_READ_ONLY');
+        </sql>
+    </changeSet>
+    <changeSet id="v0.02-init_users" author="SYSTEM">
+        <sql>
+            INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (1, '430254bc-864a-460c-8a7b-b1251ffb86ae', 'admin', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Admin', 'User')
+        </sql>
+    </changeSet>
+</databaseChangeLog>
