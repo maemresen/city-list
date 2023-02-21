@@ -10,6 +10,9 @@ import AdbIcon from '@mui/icons-material/Adb';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
+import ROUTE_PATHS from '../utils/constants/routePaths';
 
 const AppBarLink = styled(Link)`
   text-decoration: none;
@@ -17,7 +20,8 @@ const AppBarLink = styled(Link)`
 `;
 
 function ResponsiveAppBar({ leftItems }) {
-
+  const { isAuthenticated, signOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   return (
     <AppBar position="static">
 
@@ -60,7 +64,7 @@ function ResponsiveAppBar({ leftItems }) {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {leftItems.map(({ name, path }) => (
+            {leftItems.filter(({ isPublic }) => isPublic || isAuthenticated).map(({ name, path }) => (
               <Button key={name} sx={{ my: 2, color: 'white', display: 'block' }}>
                 <AppBarLink to={path}>
                   {name}
@@ -72,8 +76,8 @@ function ResponsiveAppBar({ leftItems }) {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <Button color="secondary">
-                  dd
+              <Button color="secondary" onClick={() => (isAuthenticated ? signOut() : navigate(ROUTE_PATHS.SIGN_IN))}>
+                {isAuthenticated ? 'Sign Out' : 'Sign In'}
               </Button>
             </Tooltip>
           </Box>
@@ -89,6 +93,10 @@ ResponsiveAppBar.propTypes = {
     name: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
   })),
+};
+
+ResponsiveAppBar.defaultProps = {
+  leftItems: [],
 };
 
 export default ResponsiveAppBar;

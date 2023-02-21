@@ -10,12 +10,14 @@ const ROUTES = Object.freeze({
     path: ROUTE_PATHS.HOME,
     component: <Home />,
     index: true,
+    isPublic: true,
   },
   SIGN_IN: {
     key: 'sign-in',
     name: 'SignIn',
     path: ROUTE_PATHS.SIGN_IN,
     component: <SignIn />,
+    isPublic: true,
   },
   CITIES: {
     key: 'cities',

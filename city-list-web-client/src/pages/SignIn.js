@@ -1,7 +1,8 @@
 import { Button, Container, TextField } from '@mui/material';
 import styled from '@emotion/styled';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 import ROUTE_PATHS from '../utils/constants/routePaths';
 
 const StyledContainer = styled(Container)`
@@ -13,10 +14,11 @@ const StyledTextField = styled(TextField)`
 `;
 
 export default function SignIn() {
-  const navigate = useNavigate();
-
+  const { signIn, isAuthenticated } = useContext(AuthContext);
   const [formValues, setFormValues] = useState({});
   const [formErrors, setFormErrors] = useState({});
+
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value, required } = e.target;
@@ -33,7 +35,14 @@ export default function SignIn() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    signIn({ ...formValues });
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(ROUTE_PATHS.CITIES);
+    }
+  });
 
   return (
     <StyledContainer maxWidth="xs" mar>
