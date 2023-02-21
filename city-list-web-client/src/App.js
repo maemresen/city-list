@@ -3,13 +3,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
 import ROUTES from './utils/constants/routes';
-import useAuth from './hook/useAuth';
-import AuthContext from './context/AuthContext';
 
 function App() {
-  const auth = useAuth();
   return (
-    <AuthContext.Provider value={{ ...auth }}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -21,7 +17,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </AuthContext.Provider>
   );
 }
 

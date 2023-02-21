@@ -2,30 +2,25 @@ import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import AdbIcon from '@mui/icons-material/Adb';
 import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
-import { Link } from 'react-router-dom';
-import useAuth from '../hook/useAuth';
+import { Link, useNavigate } from 'react-router-dom';
 
 const AppBarLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
 
-function ResponsiveAppBar({ leftItems, rightItems }) {
-  const { isAuthenticated } = useAuth();
+function ResponsiveAppBar({ leftItems }) {
+
   return (
     <AppBar position="static">
 
-      {isAuthenticated && <div>this is authenticated</div>}
-      {!isAuthenticated && <div>opps</div>}
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -43,9 +38,7 @@ function ResponsiveAppBar({ leftItems, rightItems }) {
               color: 'inherit',
               textDecoration: 'none',
             }}
-          >
-            LOGO
-          </Typography>
+          />
 
           <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
@@ -79,9 +72,9 @@ function ResponsiveAppBar({ leftItems, rightItems }) {
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              <IconButton sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
+              <Button color="secondary">
+                  dd
+              </Button>
             </Tooltip>
           </Box>
         </Toolbar>
@@ -92,11 +85,6 @@ function ResponsiveAppBar({ leftItems, rightItems }) {
 
 ResponsiveAppBar.propTypes = {
   leftItems: PropTypes.arrayOf(PropTypes.shape({
-    key: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    path: PropTypes.string.isRequired,
-  })),
-  rightItems: PropTypes.arrayOf(PropTypes.shape({
     key: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,

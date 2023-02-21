@@ -1,25 +1,26 @@
+import ROUTE_PATHS from './routePaths';
 import Home from '../../pages/Home';
 import SignIn from '../../pages/SignIn';
-import Cities from '../../pages/Citiies';
+import Cities from '../../pages/Cities';
 
 const ROUTES = Object.freeze({
   HOME: {
     key: 'home',
     name: 'Home',
-    path: '/',
+    path: ROUTE_PATHS.HOME,
     component: <Home />,
     index: true,
   },
   SIGN_IN: {
     key: 'sign-in',
     name: 'SignIn',
-    path: '/sign-in',
+    path: ROUTE_PATHS.SIGN_IN,
     component: <SignIn />,
   },
   CITIES: {
     key: 'cities',
     name: 'Cities',
-    path: '/cities',
+    path: ROUTE_PATHS.CITIES,
     component: <Cities />,
   },
 });
