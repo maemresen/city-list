@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import Layout from './pages/Layout';
 import NoPage from './pages/NoPage';
 import ROUTES from './utils/constants/routes';
@@ -23,6 +24,7 @@ function App() {
           </Route>
         </Routes>
       </AuthProvider>
+      <ToastContainer theme="colored" />
     </BrowserRouter>
   );
 }

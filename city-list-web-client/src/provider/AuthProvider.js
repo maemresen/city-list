@@ -1,5 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
 import COOKIE_KEY from '../utils/constants/cookieKeys';
 import authService from '../service/authService';
 import AuthContext from '../context/AuthContext';
@@ -17,10 +18,9 @@ function AuthProvider({ children }) {
 
       Cookies.set(COOKIE_KEY.REFRESH_TOKEN, newRefreshToken);
       setRefreshToken(newRefreshToken);
-    });
+    }).then(() => toast.success('Sign In Successfully'));
 
   const signOut = () => {
-    console.log('DEBUG', 'hehee logging out');
     Cookies.remove(COOKIE_KEY.ACCESS_TOKEN);
     Cookies.remove(COOKIE_KEY.REFRESH_TOKEN);
     setAccessToken(null);
