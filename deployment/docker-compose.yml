@@ -1,0 +1,43 @@
+# Reference: https://graspingtech.com/docker-compose-postgresql
+version: '3.2'
+
+services:
+  database:
+    image: postgres:14.1-alpine
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=city_list_local
+
+  city-list-api:
+    build:
+      context: ..
+      dockerfile: deployment/dockerfile/Dockerfile-api
+    expose:
+      - 8080
+    links:
+      - database
+    environment:
+      SPRING_CONFIG_ADDITIONALLOCATION: file:/config/application.yml
+      TEST_DB_USER: postgres
+      TEST_DB_PASS: postgres
+      TEST_DB_NAME: city_list_local
+    volumes:
+      - ./configs/api/:/config/
+
+#  city-list-client:
+#    image: ghcr.io/yazilim-vip/fintrack-web-client:latest
+
+  proxy:
+    image: nginx:alpine
+    ports:
+      - 9090:80
+    expose:
+      - 80
+    volumes:
+      - ./configs/proxy.conf:/etc/nginx/conf.d/proxy.conf
+    links:
+      - city-list-api
+#      - city-web-client

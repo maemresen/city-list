@@ -1,0 +1,8 @@
+FROM maven AS build
+COPY city-list-api /city-list-api
+RUN mvn -f /city-list-api/pom.xml clean install -U
+
+FROM openjdk:17-oracle
+COPY --from=build /city-list-api/city-list-rest/target/city-list-rest-1.0.00.jar city-list-rest.jar
+EXPOSE 8080
+CMD java -jar city-list-rest.jar
