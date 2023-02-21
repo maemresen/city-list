@@ -1,25 +1,21 @@
 import * as React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { post } from './utils/http-utils';
 import Layout from './pages/Layout';
-import Home from './pages/Home';
 import './App.css';
-import Login from './pages/Login';
 import NoPage from './pages/NoPage';
+import * as loginService from './service/authService';
+import ROUTES from './utils/constants/routes';
 
 function App() {
-  post('http://localhost:8080/api/auth/login', {
-    username: 'admin',
-    password: 'admin',
-  })
-    .then((data) => console.log('login response', data));
-
+  loginService.login('admin', 'admin');
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="login" element={<Login />} />
+          {Object.keys(ROUTES).map((key) => {
+            const { path, component, index } = ROUTES[key];
+            return <Route index={index} path={path} element={component} />;
+          })}
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>

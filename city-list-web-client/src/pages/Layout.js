@@ -1,20 +1,16 @@
 import { Grid } from '@mui/material';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import * as React from 'react';
+import ResponsiveAppBar from '../component/ResponsiveAppBar/ResponsiveAppBar';
+import ROUTES from '../utils/constants/routes';
 
 export default function Layout() {
   return (
-    <Grid container justifyContent="center" className="app">
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
-        </ul>
-      </nav>
+    <Grid container justifyContcent="center" className="app">
+      <ResponsiveAppBar leftItems={[
+        { ...ROUTES.HOME },
+      ]}
+      />
       <Outlet />
     </Grid>
   );
