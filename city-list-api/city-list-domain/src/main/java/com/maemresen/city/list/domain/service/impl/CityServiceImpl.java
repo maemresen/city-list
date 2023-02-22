@@ -56,15 +56,14 @@ public class CityServiceImpl implements CityService {
 	@Transactional
 	@Override
 	public CityResponseDto update(CityUpdateRequestDto cityUpdateRequestDto) throws ServiceException{
-		Long id = cityUpdateRequestDto.getId();
-
-		City existingCity = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
-
 		String name = cityUpdateRequestDto.getName();
 		if(StringUtils.isBlank(name)){
 			throw new InvalidCityNameException();
 		}
 
+		Long id = cityUpdateRequestDto.getId();
+
+		City existingCity = cityRepository.findById(id).orElseThrow(() -> new CityNotFoundException(id));
 		existingCity.setName(name);
 
 		City updatedCity = cityRepository.save(existingCity);

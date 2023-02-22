@@ -4,14 +4,18 @@ import com.maemresen.city.list.domain.MockConstants;
 import com.maemresen.city.list.domain.entity.City;
 import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
+import com.maemresen.city.list.domain.exception.business.city.InvalidCityNameException;
 import com.maemresen.city.list.domain.service.impl.CityServiceImpl;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
+import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -105,6 +109,57 @@ class CityServiceTest {
 		Assertions.assertNotNull(response);
 		Assertions.assertNull(response.getPhotoFileUuid());
 		Assertions.assertEquals(mockCityName, response.getName());
+	}
+
+	@Test
+	void update_happyPath() throws ServiceException {
+
+		final String mockCityNameOld = "mock-city-name-old";
+		final String mockCityNameNew = "mock-city-name-new";
+		final CityUpdateRequestDto mockCityUpdateRequestDto = CityUpdateRequestDto.builder()
+			.name(mockCityNameNew)
+			.build();
+
+		final City mockCityOld = new City();
+		mockCityOld.setName(mockCityNameOld);
+
+		final City mockCityNew = new City();
+		mockCityOld.setName(mockCityNameNew);
+
+		final CityResponseDto mockCityResponseDto = CityResponseDto.builder()
+			.name(mockCityNameNew)
+			.build();
+
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(mockCityOld));
+		Mockito.when(cityRepository.save(Mockito.any())).thenReturn(mockCityNew);
+		Mockito.when(cityMapper.mapToCityResponseDto(Mockito.any())).thenReturn(mockCityResponseDto);
+
+		CityResponseDto response = Assertions.assertDoesNotThrow(() -> cityServiceImpl.update(mockCityUpdateRequestDto));
+
+		Assertions.assertNotNull(response);
+		Assertions.assertEquals(mockCityNameNew, response.getName());
+	}
+
+	@Test
+	void update_withBlankNewName() {
+
+		final CityUpdateRequestDto mockCityUpdateRequestDto = CityUpdateRequestDto.builder()
+			.name(null)
+			.build();
+
+		Assertions.assertThrows(InvalidCityNameException.class, () -> cityServiceImpl.update(mockCityUpdateRequestDto));
+	}
+
+	@Test
+	void update_withNonExistCity() {
+
+		final CityUpdateRequestDto mockCityUpdateRequestDto = CityUpdateRequestDto.builder()
+			.name("mock")
+			.build();
+
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+		Assertions.assertThrows(CityNotFoundException.class, () -> cityServiceImpl.update(mockCityUpdateRequestDto));
 	}
 
 }
