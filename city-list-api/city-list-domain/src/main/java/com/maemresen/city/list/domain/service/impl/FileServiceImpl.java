@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -28,6 +29,16 @@ public class FileServiceImpl implements FileService {
 
 	private final FileRepository fileRepository;
 	private final FileMapper fileMapper;
+
+	@Override
+	public Optional<File> findEntityByUuid(UUID uuid){
+		return fileRepository.findByUuid(uuid);
+	}
+
+	@Override
+	public File saveEntity(File file){
+		return fileRepository.save(file);
+	}
 
 	@Override
 	public FileDto downloadFile(String url) throws ServiceException {

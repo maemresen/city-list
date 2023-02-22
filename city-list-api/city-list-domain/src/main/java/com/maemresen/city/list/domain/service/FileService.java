@@ -1,5 +1,6 @@
 package com.maemresen.city.list.domain.service;
 
+import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import org.springframework.retry.annotation.Backoff;
@@ -7,12 +8,27 @@ import org.springframework.retry.annotation.Retryable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.OutputStream;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
  * File related operations, like downloading or writing to FS
  */
 public interface FileService {
+
+	/**
+	 * To find File entity by uuid
+	 * @param uuid uuid that is requested
+	 * @return File entity if exsits or else empty
+	 */
+	Optional<File> findEntityByUuid(UUID uuid);
+
+	/**
+	 * To save a file
+	 * @param file entity will be saved
+	 * @return saved entity
+	 */
+	File saveEntity(File file);
 
 	/**
 	 * To download and write file to the file-system.

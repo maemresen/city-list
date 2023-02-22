@@ -15,7 +15,6 @@ import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
-import com.maemresen.city.list.domain.service.repository.FileRepository;
 import com.maemresen.city.list.domain.service.specification.CitySearchSpecification;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
 import jakarta.transaction.Transactional;
@@ -40,7 +39,6 @@ import java.util.UUID;
 public class CityServiceImpl implements CityService {
 
 	private final CityRepository cityRepository;
-	private final FileRepository fileRepository;
 	private final CityMapper cityMapper;
 	private final CitiesCsvReader citiesCsvReader;
 	private final FileService fileService;
@@ -50,7 +48,7 @@ public class CityServiceImpl implements CityService {
 	public CityResponseDto create(CityCreateRequestDto cityCreateDto) {
 		City city = cityMapper.mapToEntity(cityCreateDto);
 		UUID photoFileUuid = cityCreateDto.getPhotoFileUuid();
-		fileRepository.findByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
+		fileService.findEntityByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
 		city = cityRepository.save(city);
 		return cityMapper.mapToCityResponseDto(city);
 	}
@@ -155,7 +153,7 @@ public class CityServiceImpl implements CityService {
 
 		File photoFile = new File();
 		photoFile.setUuid(photoFileUuid);
-		photoFile = fileRepository.save(photoFile);
+		photoFile = fileService.saveEntity(photoFile);
 		city.setPhotoFile(photoFile);
 		cityRepository.save(city);
 	}
