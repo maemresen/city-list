@@ -66,6 +66,7 @@ export default function SignIn() {
         onChange={handleInputChange}
         label="Password"
         variant="outlined"
+        type="password"
         fullWidth
       />
       <Button variant="contained" onClick={handleSubmit}>Sign In</Button>

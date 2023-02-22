@@ -11,6 +11,21 @@ const cityService = {
       page, size, name,
     },
   }),
+
+  getById: ({
+    token, id,
+  }) => httpUtils.get({
+    uri: `city/${id}`,
+    token,
+  }),
+
+  update: ({
+    token, city,
+  }) => httpUtils.put({
+    uri: 'city',
+    token,
+    body: { ...city },
+  }),
 };
 
 export default cityService;

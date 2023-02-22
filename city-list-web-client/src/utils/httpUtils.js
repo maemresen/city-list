@@ -1,7 +1,5 @@
-import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import queryString from 'query-string';
-import COOKIE_KEY from './constants/cookieKeys';
 
 const API_BASE_URL = 'http://localhost:8080/api';
 

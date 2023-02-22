@@ -29,6 +29,7 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -74,6 +75,11 @@ public class CityServiceImpl implements CityService {
 	public Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> reqestParamMap){
 		return cityRepository.findAll(new CitySearchSpecification(reqestParamMap), pageable)
 			.map(cityMapper::mapToCityResponseDto);
+	}
+
+	@Override
+	public Optional<CityResponseDto> findById(Long id){
+		return cityRepository.findById(id).map(cityMapper::mapToCityResponseDto);
 	}
 
 	@Override

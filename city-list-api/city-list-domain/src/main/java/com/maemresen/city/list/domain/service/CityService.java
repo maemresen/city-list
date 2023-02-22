@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.io.InputStream;
 import java.util.Map;
+import java.util.Optional;
 
 public interface CityService {
 	CityResponseDto create(CityCreateRequestDto cityCreateDto) throws ServiceException;
@@ -18,6 +19,8 @@ public interface CityService {
 	CityResponseDto update(CityUpdateRequestDto cityUpdateRequestDto) throws ServiceException;
 
 	Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> reqestParamMap);
+
+    Optional<CityResponseDto> findById(Long id);
 
     void importCitesFromCsv(InputStream citiesCsvInputStream) throws ServiceException;
 }
