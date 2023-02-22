@@ -26,14 +26,7 @@ const ROUTES = Object.freeze({
     name: 'Cities',
     path: ROUTE_PATHS.CITIES,
     component: <Cities />,
-    requiredRoles: [ROLE.ROLE_ALLOW_EDIT],
-  },
-  USERS: {
-    key: 'cities',
-    name: 'Cities',
-    path: ROUTE_PATHS.USERS,
-    component: <Cities />,
-    requiredRoles: [ROLE.ROLE_ADMIN],
+    requiredRoles: [ROLE.ROLE_ALLOW_EDIT, ROLE.ROLE_READ_ONLY],
   },
   UNAUTHORIZED: {
     key: 'unauthorized',
