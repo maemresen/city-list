@@ -13,24 +13,17 @@ const OPTIONS = {
 };
 
 function http({
-  method, uri = '', body = null, token, queryParams = {}, extraHeaders = {}, rawBody = false,
+  method, uri = '', body = null, token, queryParams = {},
 }) {
-  let requestBody;
-  if (rawBody) {
-    requestBody = body;
-  } else {
-    requestBody = body ? JSON.stringify(body) : null;
-  }
   const headers = {
     ...OPTIONS.headers,
     Authorization: token ? `Bearer: ${token.accessToken}` : null,
-    ...extraHeaders,
   };
   return fetch(`${API_CONSTANTS.BASE_URL}/${uri}?${queryString.stringify(queryParams)}`, {
     ...OPTIONS,
     headers,
     method,
-    body: requestBody,
+    body: body ? JSON.stringify(body) : null,
   })
     .then((response) => response.json())
     .then(({ data, message, errorCode }) => {
@@ -49,7 +42,7 @@ function http({
 
 const httpUtils = {
   post({
-    uri = '', body = null, token, queryParams = {}, extraHeaders = {}, rawBody = false,
+    uri = '', body = null, token, queryParams = {},
   }) {
     return http({
       method: 'POST',
@@ -57,13 +50,11 @@ const httpUtils = {
       body,
       token,
       queryParams,
-      extraHeaders,
-      rawBody,
     });
   },
 
   put({
-    uri = '', body = null, token, queryParams = {}, extraHeaders = {}, rawBody = false,
+    uri = '', body = null, token, queryParams = {},
   }) {
     return http({
       method: 'PUT',
@@ -71,32 +62,28 @@ const httpUtils = {
       body,
       token,
       queryParams,
-      extraHeaders,
-      rawBody,
     });
   },
 
   get({
-    uri = '', token, queryParams = {}, extraHeaders = {},
+    uri = '', token, queryParams = {},
   }) {
     return http({
       method: 'GET',
       uri,
       token,
       queryParams,
-      extraHeaders,
     });
   },
 
   delete({
-    uri = '', token, queryParams = {}, extraHeaders = {},
+    uri = '', token, queryParams = {},
   }) {
     return http({
       method: 'DELETE',
       uri,
       token,
       queryParams,
-      extraHeaders,
     });
   },
 };

@@ -155,6 +155,7 @@ public class CityServiceImpl implements CityService {
 
 		File photoFile = new File();
 		photoFile.setUuid(photoFileUuid);
+		photoFile = fileRepository.save(photoFile);
 		city.setPhotoFile(photoFile);
 		cityRepository.save(city);
 	}

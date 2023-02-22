@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
   Box, Button, Container, TextField,
@@ -27,6 +27,7 @@ function City() {
   const { id } = useParams();
   const { accessToken, refreshToken } = useContext(AuthContext);
 
+  const [selectedPhoto, setSelectedPhoto] = useState();
   const [hasError, setHasError] = useState(null);
   const [formValues, setFormValues] = useState({});
   const [formErrors, setFormErrors] = useState({});
@@ -63,6 +64,17 @@ function City() {
     setHasError(error || Object.values(formErrors).some((x) => x));
   };
 
+  const handleUpdate = (event) => {
+    event.preventDefault();
+    cityService.update({
+      token: { accessToken, refreshToken },
+      city: { id, name: formValues.name },
+    }).then(() => {
+      fetchData();
+      return toast.success(`City ${id} updated successfully`);
+    });
+  };
+
   const handleDeletePhoto = (event) => {
     event.preventDefault();
     cityService.deletePhoto({
@@ -74,22 +86,15 @@ function City() {
     });
   };
 
-  const handlePhotoUpload = (event) => {
-    const photo = event.target.files[0];
-    cityService.updatePhoto({
-      token: { accessToken, refreshToken },
-      photo,
-    }).then(() => {
-      fetchData();
-      return toast.success(`City ${id} photo updated successfully`);
-    });
+  const handlePhotoPickerChange = (event) => {
+    setSelectedPhoto(event.target.files[0]);
   };
 
-  const handleUpdate = (event) => {
-    event.preventDefault();
-    cityService.update({
+  const handlePhotoSubmission = () => {
+    cityService.updatePhoto({
       token: { accessToken, refreshToken },
-      city: { id, name: formValues.name },
+      cityId: id,
+      photo: selectedPhoto,
     }).then(() => {
       fetchData();
       return toast.success(`City ${id} updated successfully`);
@@ -110,7 +115,7 @@ function City() {
         fullWidth
       />
 
-      {formValues.uuid ? (
+      {formValues.photoFileUuid ? (
         <>
           <Box>
             <StyledImage
@@ -122,13 +127,16 @@ function City() {
           <Button type="submit" variant="contained" onClick={handleDeletePhoto} disabled={hasError}>Delete Photo</Button>
         </>
       ) : (
-        <input
-          type="file"
-          name="file"
-          id="file"
-          placeholder="Upload your file"
-          onChange={handlePhotoUpload}
-        />
+        <>
+          <input
+            type="file"
+            name="file"
+            id="file"
+            placeholder="Upload your file"
+            onChange={handlePhotoPickerChange}
+          />
+          <Button variant="contained" onClick={handlePhotoSubmission} disabled={!selectedPhoto}>Upload Photo</Button>
+        </>
       )}
       <hr />
       <Button variant="contained" onClick={handleUpdate} disabled={hasError}>Sign In</Button>

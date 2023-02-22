@@ -1,4 +1,7 @@
+import queryString from 'query-string';
+import { toast } from 'react-toastify';
 import httpUtils from '../utils/httpUtils';
+import API_CONSTANTS from '../utils/constants/apiConstants';
 
 const cityService = {
 
@@ -28,20 +31,30 @@ const cityService = {
   }),
 
   updatePhoto: ({
-    token, cityId, photo = null,
+    token, cityId, photo,
   }) => {
     const formData = new FormData();
     formData.append('file', photo);
-    return httpUtils.post({
-      uri: `city/photo/${cityId}`,
-      token,
-      body: formData,
-      extraHeaders: {
-        'Content-Type': 'multipart/form-data',
-        'Content-Length': photo.size
-        ,
+    return fetch(`${API_CONSTANTS.BASE_URL}/city/photo/${cityId}`, {
+      method: 'POST',
+      headers: {
+        Authorization: token ? `Bearer: ${token.accessToken}` : null,
       },
-    });
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then(({ data, message, errorCode }) => {
+        if (errorCode) {
+          console.log(`Failed to fetched data with '${errorCode}' message. Error Code: ${errorCode} for ${uri}`);
+          throw new Error(errorCode);
+        } else {
+          console.log(`Data successfully fetched with '${message}' message from service for ${uri}`);
+        }
+        return data;
+      }).catch((error) => {
+        toast.error(`Service Error - ${error}`);
+        throw error;
+      });
   },
 
   deletePhoto: ({
