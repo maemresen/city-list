@@ -11,8 +11,11 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import { AccountCircle } from '@mui/icons-material';
 import AuthContext from '../context/AuthContext';
 import ROUTE_PATHS from '../utils/constants/routePaths';
+import roleUtils from '../utils/roleUtils';
 
 const AppBarLink = styled(Link)`
   text-decoration: none;
@@ -21,8 +24,19 @@ const AppBarLink = styled(Link)`
 
 function ResponsiveAppBar({ leftItems }) {
   const { isAuthenticated, self, signOut } = useContext(AuthContext);
-  console.log('self is ', self);
+  const { firstName, lastName } = self;
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <AppBar position="static">
 
@@ -76,23 +90,79 @@ function ResponsiveAppBar({ leftItems }) {
 
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <AppBarLink>
-              {isAuthenticated && 'hellö'}
-            </AppBarLink>
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <Button
-                sx={{ my: 2, color: 'white', display: 'block' }}
-                onClick={() => (isAuthenticated ? signOut() : navigate(ROUTE_PATHS.SIGN_IN))}
-              >
+          {isAuthenticated ? (
+            <>
+              <Box sx={{ flexGrow: 0 }}>
                 <AppBarLink>
-                  {isAuthenticated ? 'Sign Out' : 'Sign In'}
+                  {`Hello, ${firstName}`}
                 </AppBarLink>
-              </Button>
-            </Tooltip>
-          </Box>
+              </Box>
+              <div>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={handleClose}>Profile</MenuItem>
+                  {roleUtils.isAllowEdit({ self }) && <MenuItem onClick={handleClose}>Users</MenuItem>}
+                </Menu>
+              </div>
+            </>
+          // <>
+          //   <Box sx={{ flexGrow: 0 }}>
+          //     <AppBarLink>
+          //       {`Hello, ${firstName}`}
+          //     </AppBarLink>
+          //   </Box>
+          //
+          //   <Box sx={{ flexGrow: 0 }}>
+          //     <Tooltip title="Open settings">
+          //       <Button
+          //         sx={{ my: 2, color: 'white', display: 'block' }}
+          //         onClick={signOut}
+          //       >
+          //         <AppBarLink>
+          //           Sign Out
+          //         </AppBarLink>
+          //       </Button>
+          //     </Tooltip>
+          //   </Box>
+          // </>
+          ) : (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <Button
+                  sx={{ my: 2, color: 'white', display: 'block' }}
+                  onClick={() => navigate(ROUTE_PATHS.SIGN_IN)}
+                >
+                  <AppBarLink>
+                    Sign In
+                  </AppBarLink>
+                </Button>
+              </Tooltip>
+            </Box>
+          )}
+
         </Toolbar>
       </Container>
     </AppBar>

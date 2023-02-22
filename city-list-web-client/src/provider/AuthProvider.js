@@ -11,7 +11,7 @@ import userService from '../service/userService';
 function AuthProvider({ children }) {
   const [accessToken, setAccessToken] = useState(Cookies.get(COOKIE_KEY.ACCESS_TOKEN));
   const [refreshToken, setRefreshToken] = useState(Cookies.get(COOKIE_KEY.REFRESH_TOKEN));
-  const [self, setSelf] = useState(Cookies.get(COOKIE_KEY.REFRESH_TOKEN));
+  const [self, setSelf] = useState({});
 
   const isAuthenticated = useMemo(() => !!accessToken, [accessToken]);
 
@@ -19,7 +19,7 @@ function AuthProvider({ children }) {
     if (isAuthenticated) {
       userService.self({ accessToken, refreshToken }).then(setSelf);
     } else {
-      setSelf(null);
+      setSelf({});
     }
   }, [accessToken, isAuthenticated]);
 
