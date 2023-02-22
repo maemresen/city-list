@@ -1,7 +1,7 @@
 package com.maemresen.city.list.rest.controller;
 
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
-import com.maemresen.city.list.domain.error.exception.city.CityNotFoundException;
+import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;

@@ -1,7 +1,7 @@
 package com.maemresen.city.list.domain.service.impl;
 
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
-import com.maemresen.city.list.domain.error.exception.user.UserNotFoundException;
+import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.user.UserNotFoundException;
 import com.maemresen.city.list.domain.service.UserService;
 import com.maemresen.city.list.domain.service.mapper.UserMapper;
 import com.maemresen.city.list.domain.service.model.dto.UserResponseDto;

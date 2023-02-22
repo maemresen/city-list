@@ -1,7 +1,7 @@
 package com.maemresen.city.list.rest.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.maemresen.city.list.domain.error.code.ServiceError;
+import com.maemresen.city.list.domain.exception.ExceptionType;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -13,12 +13,12 @@ import java.io.OutputStream;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ServletUtils {
 
-    public static void setErrorResponse(HttpServletResponse response, ServiceError serviceError) throws IOException {
-        response.setStatus(serviceError.getHttpStatus().value());
+    public static void setErrorResponse(HttpServletResponse response, ExceptionType exceptionType) throws IOException {
+        response.setStatus(exceptionType.getHttpStatus().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         OutputStream out = response.getOutputStream();
         ObjectMapper mapper = new ObjectMapper();
-		var body = GenericResponse.error(serviceError);
+		var body = GenericResponse.error(exceptionType);
 		mapper.writeValue(out, body);
         out.flush();
     }

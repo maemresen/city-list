@@ -2,8 +2,8 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.domain.entity.RefreshToken;
 import com.maemresen.city.list.domain.entity.User;
-import com.maemresen.city.list.domain.error.exception.auth.BadLoginCredentialsException;
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
+import com.maemresen.city.list.domain.exception.business.auth.BadLoginCredentialsException;
+import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.AuthService;
 import com.maemresen.city.list.domain.service.JwtService;
 import com.maemresen.city.list.domain.service.RefreshTokenService;

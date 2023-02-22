@@ -2,8 +2,8 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.file.download.FileDownloadUtil;
 import com.maemresen.city.list.domain.entity.File;
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
-import com.maemresen.city.list.domain.error.exception.file.FileIoException;
+import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.file.FileIoException;
 import com.maemresen.city.list.domain.service.FileService;
 import com.maemresen.city.list.domain.service.mapper.FileMapper;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;

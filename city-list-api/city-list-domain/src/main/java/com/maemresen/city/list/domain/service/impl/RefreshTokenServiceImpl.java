@@ -2,8 +2,8 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.domain.entity.RefreshToken;
 import com.maemresen.city.list.domain.entity.User;
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
-import com.maemresen.city.list.domain.error.exception.user.UserNotFoundException;
+import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.user.UserNotFoundException;
 import com.maemresen.city.list.domain.service.RefreshTokenService;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
 import com.maemresen.city.list.domain.service.repository.RefreshTokenRepository;

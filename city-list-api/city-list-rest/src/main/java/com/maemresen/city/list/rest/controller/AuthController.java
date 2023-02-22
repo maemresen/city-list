@@ -1,6 +1,6 @@
 package com.maemresen.city.list.rest.controller;
 
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
+import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.AuthService;
 import com.maemresen.city.list.domain.service.model.dto.SignInRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.TokenRefreshRequestDto;

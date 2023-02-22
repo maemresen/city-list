@@ -1,8 +1,8 @@
 package com.maemresen.city.list.rest.config;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.maemresen.city.list.domain.error.code.ServiceError;
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
+import com.maemresen.city.list.domain.exception.ExceptionType;
+import com.maemresen.city.list.domain.exception.ServiceException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,20 +40,20 @@ public class GenericResponse<T> {
 		return ok(true);
 	}
 
-	public static <R> GenericResponse<R> error(ServiceError serviceError, R data) {
+	public static <R> GenericResponse<R> error(ExceptionType exceptionType, R data) {
 		return GenericResponse.<R>builder()
 			.timestamp(getNow())
 			.message("Error")
 			.data(data)
-			.errorCode(serviceError.getCode())
+			.errorCode(exceptionType.getCode())
 			.build();
 	}
 
-	public static <R> GenericResponse<R> error(ServiceError serviceError) {
-		return error(serviceError, null);
+	public static <R> GenericResponse<R> error(ExceptionType exceptionType) {
+		return error(exceptionType, null);
 	}
 
 	public static GenericResponse<Object> error(ServiceException serviceException) {
-		return error(serviceException.getServiceError(), serviceException.getData());
+		return error(serviceException.getExceptionType(), serviceException.getData());
 	}
 }

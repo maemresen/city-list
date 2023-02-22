@@ -1,7 +1,7 @@
 package com.maemresen.city.list.rest.config;
 
-import com.maemresen.city.list.domain.error.code.ServiceError;
-import com.maemresen.city.list.domain.error.exception.base.ServiceException;
+import com.maemresen.city.list.domain.exception.ExceptionType;
+import com.maemresen.city.list.domain.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -24,13 +24,13 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 				serviceException,
 				request.toString(),
 				throwable);
-			HttpStatus httpStatus = serviceException.getServiceError().getHttpStatus();
+			HttpStatus httpStatus = serviceException.getExceptionType().getHttpStatus();
 			return new ResponseEntity<>(GenericResponse.error(serviceException), new HttpHeaders(), httpStatus);
 		} else {
 			log.error("An occurred while processing request {} ",
 				request.toString(),
 				throwable);
-			ServiceError error = ServiceError.UN_EXPECTED_ERROR;
+			ExceptionType error = ExceptionType.UN_EXPECTED_ERROR;
 			return new ResponseEntity<>(GenericResponse.error(error), new HttpHeaders(), error.getHttpStatus());
 		}
 	}
@@ -38,6 +38,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
 		log.error("An error occurred while processing request {} ", request.toString(), ex);
-		return new ResponseEntity<>(GenericResponse.error(ServiceError.UN_EXPECTED_ERROR), new HttpHeaders(), statusCode);
+		return new ResponseEntity<>(GenericResponse.error(ExceptionType.UN_EXPECTED_ERROR), new HttpHeaders(), statusCode);
 	}
 }
