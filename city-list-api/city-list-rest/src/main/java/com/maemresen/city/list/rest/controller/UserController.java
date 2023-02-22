@@ -3,6 +3,7 @@ package com.maemresen.city.list.rest.controller;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.UserService;
 import com.maemresen.city.list.domain.service.model.dto.UserResponseDto;
+import com.maemresen.city.list.domain.util.SecurityHelper;
 import com.maemresen.city.list.rest.config.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,6 +23,6 @@ public class UserController {
 	@Operation(summary = "Get Self info of auth user")
 	@GetMapping("self")
 	public GenericResponse<UserResponseDto> getSelf() throws ServiceException {
-		return GenericResponse.ok(userService.getSelf());
+		return GenericResponse.ok(userService.getByUuid(SecurityHelper.getAuthUserUuid()));
 	}
 }
