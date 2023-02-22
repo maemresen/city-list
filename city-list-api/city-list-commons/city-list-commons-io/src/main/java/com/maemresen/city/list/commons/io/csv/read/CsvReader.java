@@ -10,10 +10,22 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class to parse and get data from a CSV file
+ *
+ * @param <T> type of the data will be parsed
+ */
 @Slf4j
 @RequiredArgsConstructor
 public abstract class CsvReader<T> {
 
+	/**
+	 * Parse given CSV file as an input stream
+	 *
+	 * @param csvInputStream stream that contains CSV file
+	 * @return parsed data from CSV
+	 * @throws CsvReadException any error occurred while parsing CSV
+	 */
 	public List<T> parse(InputStream csvInputStream) throws CsvReadException {
 		try {
 			if (csvInputStream == null) {

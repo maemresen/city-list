@@ -7,6 +7,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
+/**
+ * CSV Reader implementation to read CSV file which includes mock City data
+ */
 @Component
 public class CitiesCsvReader extends CsvReader<CityCsvDto> {
 

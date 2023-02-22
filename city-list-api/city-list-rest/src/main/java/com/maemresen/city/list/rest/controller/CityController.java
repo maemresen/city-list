@@ -69,7 +69,7 @@ public class CityController {
 	@Operation(summary = "Delete Photo of the city")
 	@DeleteMapping( "/photo/{cityId}")
 	public GenericResponse<Boolean> deletePhoto(@PathVariable("cityId") Long cityId) throws ServiceException {
-		cityService.deltePhoto(cityId);
+		cityService.deletePhoto(cityId);
 		return GenericResponse.ok();
 	}
 }

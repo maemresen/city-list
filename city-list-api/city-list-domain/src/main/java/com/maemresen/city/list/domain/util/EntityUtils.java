@@ -5,10 +5,18 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+/**
+ * Utility methods for Entity related operations
+ */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class EntityUtils {
 
-	public static UUID generateUUID(){
+	/**
+	 * Unique random UUID generator method
+	 *
+	 * @return a unique random UUID value
+	 */
+	public static UUID generateUUID() {
 		return UUID.randomUUID();
 	}
 }

@@ -74,8 +74,8 @@ public class CityServiceImpl implements CityService {
 	}
 
 	@Override
-	public Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> reqestParamMap){
-		return cityRepository.findAll(new CitySearchSpecification(reqestParamMap), pageable)
+	public Page<CityResponseDto> findAll(Pageable pageable, Map<String, String> requestParamMap){
+		return cityRepository.findAll(new CitySearchSpecification(requestParamMap), pageable)
 			.map(cityMapper::mapToCityResponseDto);
 	}
 
@@ -140,7 +140,7 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	@Override
-	public void deltePhoto(Long cityId) throws ServiceException {
+	public void deletePhoto(Long cityId) throws ServiceException {
 		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
 		city.setPhotoFile(null);
 		cityRepository.save(city);
