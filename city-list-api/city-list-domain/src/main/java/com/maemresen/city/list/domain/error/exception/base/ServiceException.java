@@ -1,6 +1,5 @@
 package com.maemresen.city.list.domain.error.exception.base;
 
-import com.maemresen.city.list.domain.error.code.CommonServiceError;
 import com.maemresen.city.list.domain.error.code.ServiceError;
 import lombok.Getter;
 
@@ -12,19 +11,19 @@ public class ServiceException extends Exception {
 	// ...
 	public ServiceException(String message) {
 		super(message);
-		this.serviceError = CommonServiceError.SERVICE_ERROR;
+		this.serviceError = ServiceError.SERVICE_ERROR;
 		this.data = null;
 	}
 
 	public ServiceException(String message, Throwable cause) {
 		super(message, cause);
-		this.serviceError = CommonServiceError.SERVICE_ERROR;
+		this.serviceError = ServiceError.SERVICE_ERROR;
 		this.data = null;
 	}
 
 	public ServiceException(Throwable cause) {
 		super(cause);
-		this.serviceError = CommonServiceError.SERVICE_ERROR;
+		this.serviceError = ServiceError.SERVICE_ERROR;
 		this.data = null;
 	}
 
@@ -32,19 +31,19 @@ public class ServiceException extends Exception {
 	 public ServiceException(String message, Object data) {
 		super(message);
 		this.data = data;
-		 this.serviceError = CommonServiceError.SERVICE_ERROR;
+		 this.serviceError = ServiceError.SERVICE_ERROR;
 	}
 
 	public ServiceException(Throwable cause, Object data) {
 		super(cause);
 		this.data = data;
-		this.serviceError = CommonServiceError.SERVICE_ERROR;
+		this.serviceError = ServiceError.SERVICE_ERROR;
 	}
 
 	public ServiceException(String message, Throwable cause, Object data) {
 		super(message, cause);
 		this.data = data;
-		this.serviceError = CommonServiceError.SERVICE_ERROR;
+		this.serviceError = ServiceError.SERVICE_ERROR;
 	}
 
 	// ...

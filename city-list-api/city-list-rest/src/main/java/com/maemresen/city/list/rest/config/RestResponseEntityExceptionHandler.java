@@ -1,6 +1,6 @@
 package com.maemresen.city.list.rest.config;
 
-import com.maemresen.city.list.domain.error.code.CommonServiceError;
+import com.maemresen.city.list.domain.error.code.ServiceError;
 import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -30,7 +30,7 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 			log.error("An occurred while processing request {} ",
 				request.toString(),
 				throwable);
-			CommonServiceError error = CommonServiceError.UN_EXPECTED_ERROR;
+			ServiceError error = ServiceError.UN_EXPECTED_ERROR;
 			return new ResponseEntity<>(GenericResponse.error(error), new HttpHeaders(), error.getHttpStatus());
 		}
 	}
@@ -38,7 +38,6 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
 	@Override
 	protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatusCode statusCode, WebRequest request) {
 		log.error("An error occurred while processing request {} ", request.toString(), ex);
-		CommonServiceError error = CommonServiceError.getByHttpStatusCode(statusCode.value());
-		return new ResponseEntity<>(GenericResponse.error(error), new HttpHeaders(), statusCode);
+		return new ResponseEntity<>(GenericResponse.error(ServiceError.UN_EXPECTED_ERROR), new HttpHeaders(), statusCode);
 	}
 }
