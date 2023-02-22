@@ -26,6 +26,30 @@ const cityService = {
     token,
     body: { ...city },
   }),
+
+  updatePhoto: ({
+    token, cityId, photo = null,
+  }) => {
+    const formData = new FormData();
+    formData.append('file', photo);
+    return httpUtils.post({
+      uri: `city/photo/${cityId}`,
+      token,
+      body: formData,
+      extraHeaders: {
+        'Content-Type': 'multipart/form-data',
+        'Content-Length': photo.size
+        ,
+      },
+    });
+  },
+
+  deletePhoto: ({
+    token, cityId,
+  }) => httpUtils.delete({
+    uri: `city/photo/${cityId}`,
+    token,
+  }),
 };
 
 export default cityService;

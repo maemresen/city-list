@@ -140,7 +140,7 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	@Override
-	public void removePhoto(Long cityId) throws ServiceException {
+	public void deltePhoto(Long cityId) throws ServiceException {
 		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
 		city.setPhotoFile(null);
 		cityRepository.save(city);

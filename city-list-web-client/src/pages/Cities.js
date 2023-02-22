@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import cityService from '../service/cityService';
 import AuthContext from '../context/AuthContext';
 import ROUTE_PATHS from '../utils/constants/routePaths';
+import fileUtils from '../utils/fileUtils';
 
 const StyledImage = styled.img`
   width: auto;
@@ -46,7 +47,7 @@ const columns = [
       }
       return (
         <StyledImage
-          src={`http://localhost:8080/api/file/${value}`}
+          src={fileUtils.getFullPath({ uuid: value })}
           alt="Image"
           loading="lazy"
         />

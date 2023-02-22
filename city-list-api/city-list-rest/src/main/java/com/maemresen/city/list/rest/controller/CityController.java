@@ -59,7 +59,7 @@ public class CityController {
 
 	@Operation(summary = "Update Photo of the city")
 	@PostMapping( "/photo/{cityId}")
-	public String handleFileUpload(@PathVariable("cityId")Long cityId, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws ServiceException {
+	public String updatePhoto(@PathVariable("cityId")Long cityId, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws ServiceException {
 		cityService.updatePhoto(cityId, file);
 		redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
 		return "redirect:/";
@@ -67,8 +67,8 @@ public class CityController {
 
 	@Operation(summary = "Delete Photo of the city")
 	@DeleteMapping( "/photo/{cityId}")
-	public GenericResponse<Boolean> handleFileUpload(@PathVariable("cityId") Long cityId) throws ServiceException {
-		cityService.removePhoto(cityId);
+	public GenericResponse<Boolean> deletePhoto(@PathVariable("cityId") Long cityId) throws ServiceException {
+		cityService.deltePhoto(cityId);
 		return GenericResponse.ok();
 	}
 }

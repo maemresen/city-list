@@ -23,7 +23,7 @@ public interface CityService {
 
     void importCitesFromCsv(InputStream citiesCsvInputStream) throws ServiceException;
 
-    void removePhoto(Long cityId) throws ServiceException;
+    void deltePhoto(Long cityId) throws ServiceException;
 
 	void updatePhoto(Long cityId, MultipartFile file) throws ServiceException;
 }
