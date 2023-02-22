@@ -1,9 +1,9 @@
 package com.maemresen.city.list.domain.exception.business.auth;
 
 import com.maemresen.city.list.domain.exception.ExceptionType;
-import com.maemresen.city.list.domain.exception.business.BusinessException;
+import com.maemresen.city.list.domain.exception.ServiceException;
 
-public class UnauthorizedUserException extends BusinessException {
+public class UnauthorizedUserException extends ServiceException {
 	public UnauthorizedUserException(String message) {
 		super(message, ExceptionType.UNAUTHORIZED);
 	}

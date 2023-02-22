@@ -1,5 +1,6 @@
 package com.maemresen.city.list.rest.config.security.jwt;
 
+import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.JwtService;
 import com.maemresen.city.list.domain.service.impl.CustomUserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
@@ -44,7 +45,7 @@ public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
 		filterChain.doFilter(request, response);
 	}
 
-	private void handleJwt(HttpServletRequest request) {
+	private void handleJwt(HttpServletRequest request) throws ServiceException {
 		String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 		if (StringUtils.isBlank(authorizationHeader)) {
 			return;
@@ -53,7 +54,7 @@ public class JwtAuthenticationRequestFilter extends OncePerRequestFilter {
 		String jwt = authorizationHeader.substring(BEARER_TOKEN_PREFIX.length());
 		jwtService.validateJwtToken(jwt);
 
-		String username = jwtService.getUserNameFromJwtToken(jwt);
+		String username = jwtService.getUsernameFromJwtToken(jwt);
 		UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 		UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 		authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

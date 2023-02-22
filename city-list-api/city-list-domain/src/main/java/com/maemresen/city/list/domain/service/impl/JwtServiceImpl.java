@@ -1,7 +1,8 @@
 package com.maemresen.city.list.domain.service.impl;
 
+import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.auth.InvalidJwtException;
 import com.maemresen.city.list.domain.service.JwtService;
-import com.maemresen.city.list.domain.service.UserService;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
 import com.maemresen.city.list.domain.util.constants.JwtCustomClaim;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -46,7 +47,7 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public String getUserNameFromJwtToken(String token) {
+	public String getUsernameFromJwtToken(String token) {
 		return Jwts.parser()
 			.setSigningKey(jwtProps.getSecret())
 			.parseClaimsJws(token)
@@ -55,19 +56,19 @@ public class JwtServiceImpl implements JwtService {
 	}
 
 	@Override
-	public void validateJwtToken(String jwt) {
+	public void validateJwtToken(String jwt) throws ServiceException {
 		try {
 			Jwts.parser().setSigningKey(jwtProps.getSecret()).parseClaimsJws(jwt);
 		} catch (SignatureException e) {
-			log.error("Invalid JWT signature", e);
+			throw new InvalidJwtException("Invalid JWT signature", e);
 		} catch (MalformedJwtException e) {
-			log.error("Invalid JWT token", e);
+			throw new InvalidJwtException("Invalid JWT token", e);
 		} catch (ExpiredJwtException e) {
-			log.error("JWT token is expired", e);
+			throw new InvalidJwtException("JWT token is expired", e);
 		} catch (UnsupportedJwtException e) {
-			log.error("JWT token is unsupported", e);
+			throw new InvalidJwtException("JWT token is unsupported", e);
 		} catch (IllegalArgumentException e) {
-			log.error("JWT claims string is empty", e);
+			throw new InvalidJwtException("JWT claims string is empty", e);
 		}
 	}
 }

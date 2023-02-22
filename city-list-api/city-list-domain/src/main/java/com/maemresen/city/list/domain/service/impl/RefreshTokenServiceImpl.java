@@ -3,6 +3,7 @@ package com.maemresen.city.list.domain.service.impl;
 import com.maemresen.city.list.domain.entity.RefreshToken;
 import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.auth.ExpiredRefreshTokenException;
 import com.maemresen.city.list.domain.exception.business.user.UserNotFoundException;
 import com.maemresen.city.list.domain.service.RefreshTokenService;
 import com.maemresen.city.list.domain.service.model.prop.security.jwt.JwtProps;
@@ -28,7 +29,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 	}
 
 	@Override
-	public RefreshToken createRefreshToken(User user) throws UserNotFoundException {
+	public RefreshToken createRefreshToken(User user) {
 		RefreshToken refreshToken = new RefreshToken();
 
 		refreshToken.setUser(user);
@@ -42,7 +43,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 	public void verifyExpiration(RefreshToken token) throws ServiceException {
 		if (token.getExpiryDate().isBefore(LocalDateTime.now())) {
 			refreshTokenRepository.delete(token);
-			throw new ServiceException("Refresh token expired.");
+			throw new ExpiredRefreshTokenException(token.getToken());
 		}
 	}
 

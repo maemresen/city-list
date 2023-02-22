@@ -26,6 +26,8 @@ public enum ExceptionType {
 	// auth
 	BAD_CREDENTIALS(ExceptionType.AUTH, "001", HttpStatus.INTERNAL_SERVER_ERROR),
 	UNAUTHORIZED(ExceptionType.AUTH, "002", HttpStatus.UNAUTHORIZED),
+	INVALID_JWT(ExceptionType.AUTH, "003", HttpStatus.UNAUTHORIZED),
+	EXPIRED_REFRESH_TOKEN(ExceptionType.AUTH, "004", HttpStatus.UNAUTHORIZED),
 
 	// user
 	USER_NOT_FOUND(ExceptionType.USER, "001", HttpStatus.INTERNAL_SERVER_ERROR),
@@ -35,6 +37,7 @@ public enum ExceptionType {
 	INVALID_CITY_NAME(ExceptionType.CITY, "002", HttpStatus.INTERNAL_SERVER_ERROR),
 
 	// file
+
 	FILE_IO_ERROR(ExceptionType.FILE, "001", HttpStatus.INTERNAL_SERVER_ERROR);
 
 	private static final String COMMON = "E00";

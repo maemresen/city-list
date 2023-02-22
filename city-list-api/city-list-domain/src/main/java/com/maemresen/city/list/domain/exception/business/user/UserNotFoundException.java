@@ -1,11 +1,11 @@
 package com.maemresen.city.list.domain.exception.business.user;
 
 import com.maemresen.city.list.domain.exception.ExceptionType;
-import com.maemresen.city.list.domain.exception.business.BusinessException;
+import com.maemresen.city.list.domain.exception.ServiceException;
 
 import java.util.UUID;
 
-public class UserNotFoundException extends BusinessException {
+public class UserNotFoundException extends ServiceException {
 	private static final String MESSAGE = "User not found";
 	private static final ExceptionType ERROR = ExceptionType.USER_NOT_FOUND;
 
