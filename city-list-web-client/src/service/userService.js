@@ -1,10 +1,10 @@
 import httpUtils from '../utils/httpUtils';
 
-const authService = {
-  self: (token) => httpUtils.get({
+const userService = {
+  getSelf: (token) => httpUtils.get({
     uri: 'user/self',
     token,
   }),
 };
 
-export default authService;
+export default userService;

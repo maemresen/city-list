@@ -3,16 +3,18 @@ import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import AuthContext from '../context/AuthContext';
 import ROUTE_PATHS from '../utils/constants/routePaths';
-import roleUtils from '../utils/roleUtils';
+import JWT_CLAIM_KEY from '../utils/constants/jwtClaimKeys';
+import jwtUtils from '../utils/jwtUtils';
 
 function Authorized({ children, requiredRoles }) {
-  const { isAuthenticated, self } = useContext(AuthContext);
+  const { accessToken, isAuthenticated } = useContext(AuthContext);
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTE_PATHS.SIGN_IN} replace />;
   }
 
-  const hasAnyRequiredRole = roleUtils.hasAnyRole({ self, requiredRoles });
+  const role = jwtUtils.getClaim({ jwt: accessToken, claimKey: JWT_CLAIM_KEY.USER_ROLE });
+  const hasAnyRequiredRole = requiredRoles.some((requireRole) => requireRole === role);
   if (!hasAnyRequiredRole) {
     return <Navigate to={ROUTE_PATHS.UNAUTHORIZED} replace />;
   }

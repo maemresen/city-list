@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import queryString from 'query-string';
 import COOKIE_KEY from './constants/cookieKeys';
 
 const API_BASE_URL = 'http://localhost:8080/api';
@@ -15,9 +16,9 @@ const OPTIONS = {
 };
 
 function http({
-  method, uri = '', body = null, token,
+  method, uri = '', body = null, token, queryParams = {},
 }) {
-  return fetch(`${API_BASE_URL}/${uri}`, {
+  return fetch(`${API_BASE_URL}/${uri}?${queryString.stringify(queryParams)}`, {
     ...OPTIONS,
     headers: {
       ...OPTIONS.headers,
@@ -42,29 +43,36 @@ function http({
 }
 
 const httpUtils = {
-  post({ uri = '', body = null, token }) {
+  post({
+    uri = '', body = null, token, queryParams = {},
+  }) {
     return http({
       method: 'POST',
       uri,
       body,
       token,
+      queryParams,
     });
   },
 
-  put({ uri = '', body = null, token }) {
+  put({
+    uri = '', body = null, token, queryParams = {},
+  }) {
     return http({
       method: 'PUT',
       uri,
       body,
       token,
+      queryParams,
     });
   },
 
-  get({ uri = '', token }) {
+  get({ uri = '', token, queryParams = {} }) {
     return http({
       method: 'GET',
       uri,
       token,
+      queryParams,
     });
   },
 };

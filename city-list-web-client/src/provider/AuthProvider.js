@@ -20,7 +20,7 @@ function AuthProvider({ children }) {
 
   useEffect(() => {
     if (isAuthenticated) {
-      userService.self({ accessToken, refreshToken }).then(setSelf);
+      userService.getSelf({ accessToken, refreshToken }).then(setSelf);
     } else {
       setSelf({});
     }

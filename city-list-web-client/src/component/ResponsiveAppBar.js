@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import styled from '@emotion/styled';
 import { Link, useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
-import { IconButton, Menu, MenuItem } from '@mui/material';
+import { Menu, MenuItem } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import AuthContext from '../context/AuthContext';
 import ROUTE_PATHS from '../utils/constants/routePaths';
@@ -134,8 +134,6 @@ function ResponsiveAppBar({ leftItems }) {
                 onClose={handleClose}
               >
                 <MenuItem onClick={handleClose}>Sign Out</MenuItem>
-                {roleUtils.isAdmin({ self })
-                      && <MenuItem onClick={handleClose}>Users</MenuItem>}
               </Menu>
             </div>
           ) : (

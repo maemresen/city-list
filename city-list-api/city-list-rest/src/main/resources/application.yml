@@ -1,4 +1,3 @@
-
 spring:
   profiles:
     active: dev, cityInitializer
@@ -51,6 +50,8 @@ app:
           POST:
             - /auth/sign-in
             - /auth/refresh-token
+          GET:
+            - /file/**
     jwt:
       secret: jwt-secret-key
       access-token-expiration-ms: 3600000
