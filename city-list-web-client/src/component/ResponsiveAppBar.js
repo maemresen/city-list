@@ -20,7 +20,8 @@ const AppBarLink = styled(Link)`
 `;
 
 function ResponsiveAppBar({ leftItems }) {
-  const { isAuthenticated, signOut } = useContext(AuthContext);
+  const { isAuthenticated, self, signOut } = useContext(AuthContext);
+  console.log('self is ', self);
   const navigate = useNavigate();
   return (
     <AppBar position="static">
@@ -75,6 +76,11 @@ function ResponsiveAppBar({ leftItems }) {
 
           </Box>
 
+          <Box sx={{ flexGrow: 0 }}>
+            <AppBarLink>
+              {isAuthenticated && 'hellö'}
+            </AppBarLink>
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <Button

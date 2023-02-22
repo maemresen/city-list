@@ -1,8 +1,10 @@
+import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import COOKIE_KEY from './constants/cookieKeys';
 
 const API_BASE_URL = 'http://localhost:8080/api';
 
-const HEADERS = {
+const OPTIONS = {
   mode: 'cors',
   cache: 'no-cache',
   credentials: 'same-origin',
@@ -12,11 +14,17 @@ const HEADERS = {
   },
 };
 
-function http(method, uri = '', body = {}) {
+function http({
+  method, uri = '', body = null, token,
+}) {
   return fetch(`${API_BASE_URL}/${uri}`, {
-    ...HEADERS,
+    ...OPTIONS,
+    headers: {
+      ...OPTIONS.headers,
+      Authorization: token ? `Bearer: ${token.accessToken}` : null,
+    },
     method,
-    body: JSON.stringify(body),
+    body: body ? JSON.stringify(body) : null,
   })
     .then((response) => response.json())
     .then(({ data, message, errorCode }) => {
@@ -32,16 +40,30 @@ function http(method, uri = '', body = {}) {
 }
 
 const httpUtils = {
-  post(uri = '', body = {}) {
-    return http('POST', uri, body);
+  post({ uri = '', body = null, token }) {
+    return http({
+      method: 'POST',
+      uri,
+      body,
+      token,
+    });
   },
 
-  put(uri = '', body = {}) {
-    return http('PUT', uri, body);
+  put({ uri = '', body = null, token }) {
+    return http({
+      method: 'PUT',
+      uri,
+      body,
+      token,
+    });
   },
 
-  get(uri = '') {
-    return http('GET', uri);
+  get({ uri = '', token }) {
+    return http({
+      method: 'GET',
+      uri,
+      token,
+    });
   },
 };
 
