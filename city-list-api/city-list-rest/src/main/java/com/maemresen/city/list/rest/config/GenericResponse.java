@@ -36,6 +36,10 @@ public class GenericResponse<T> {
 			.build();
 	}
 
+	public static GenericResponse<Boolean> ok() {
+		return ok(true);
+	}
+
 	public static <R> GenericResponse<R> error(ServiceError serviceError, R data) {
 		return GenericResponse.<R>builder()
 			.timestamp(getNow())

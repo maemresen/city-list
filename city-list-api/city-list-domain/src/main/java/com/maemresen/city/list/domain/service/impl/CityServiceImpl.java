@@ -2,6 +2,7 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.entity.City;
+import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.error.exception.base.ServiceException;
 import com.maemresen.city.list.domain.error.exception.city.CityNotFoundException;
 import com.maemresen.city.list.domain.error.exception.city.InvalidCityNameException;
@@ -25,6 +26,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
 import java.util.List;
@@ -134,5 +136,26 @@ public class CityServiceImpl implements CityService {
 		}
 
 		create(cityCreateRequestDto);
+	}
+
+	@Transactional
+	@Override
+	public void removePhoto(Long cityId) throws ServiceException {
+		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
+		city.setPhotoFile(null);
+		cityRepository.save(city);
+	}
+
+	@Transactional
+	@Override
+	public void updatePhoto(Long cityId, MultipartFile file) throws ServiceException {
+		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
+		UUID photoFileUuid = UUID.randomUUID();
+		fileService.storeFile(photoFileUuid, file);
+
+		File photoFile = new File();
+		photoFile.setUuid(photoFileUuid);
+		city.setPhotoFile(photoFile);
+		cityRepository.save(city);
 	}
 }

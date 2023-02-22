@@ -1,10 +1,12 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
-import { Button, Container, TextField } from '@mui/material';
-import { useContext, useEffect, useState } from 'react';
+import {
+  Box, Button, Container, TextField,
+} from '@mui/material';
+import { useContext, useState } from 'react';
 import { toast } from 'react-toastify';
+import * as React from 'react';
 import AuthContext from '../context/AuthContext';
-import ROUTE_PATHS from '../utils/constants/routePaths';
 import cityService from '../service/cityService';
 
 const StyledContainer = styled(Container)`
@@ -12,6 +14,11 @@ const StyledContainer = styled(Container)`
 `;
 
 const StyledTextField = styled(TextField)`
+  margin-bottom: 2rem;
+`;
+
+const StyledImage = styled.img`
+  width: 100%;
   margin-bottom: 2rem;
 `;
 
@@ -72,6 +79,14 @@ function City() {
         variant="outlined"
         fullWidth
       />
+
+      <Box>
+        <StyledImage
+          src={`http://localhost:8080/api/file/${formValues.photoFileUuid}`}
+          alt="Image"
+          loading="lazy"
+        />
+      </Box>
       <Button variant="contained" onClick={handleSubmit} disabled={hasError}>Sign In</Button>
     </StyledContainer>
   );

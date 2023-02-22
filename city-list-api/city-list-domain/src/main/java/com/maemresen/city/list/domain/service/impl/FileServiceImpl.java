@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -51,6 +52,15 @@ public class FileServiceImpl implements FileService {
 			IOUtils.copy(fileInputStream, outputStream);
 		} catch (Exception e) {
 			throw new FileIoException("Failed to reach file with " + uuid, e);
+		}
+	}
+
+	@Override
+	public void storeFile(UUID uuid, MultipartFile multipartFile) throws ServiceException {
+		try (FileOutputStream fileOutputStream = new FileOutputStream("downloads/"+uuid)){
+			fileOutputStream.write(multipartFile.getBytes());
+		} catch(Exception e){
+			throw new FileIoException("Failed to store file", e);
 		}
 	}
 }
