@@ -22,4 +22,13 @@ public final class ServletUtils {
 		mapper.writeValue(out, body);
         out.flush();
     }
+
+	public static void setOkResponse(HttpServletResponse response) throws IOException {
+		response.setStatus(HttpServletResponse.SC_OK);
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		OutputStream out = response.getOutputStream();
+		ObjectMapper mapper = new ObjectMapper();
+		mapper.writeValue(out, GenericResponse.ok());
+		out.flush();
+	}
 }

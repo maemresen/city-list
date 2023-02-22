@@ -35,7 +35,8 @@ const cityService = {
   }) => {
     const formData = new FormData();
     formData.append('file', photo);
-    return fetch(`${API_CONSTANTS.BASE_URL}/city/photo/${cityId}`, {
+    const uri = `${API_CONSTANTS.BASE_URL}/city/photo/${cityId}`;
+    return fetch(uri, {
       method: 'POST',
       headers: {
         Authorization: token ? `Bearer: ${token.accessToken}` : null,

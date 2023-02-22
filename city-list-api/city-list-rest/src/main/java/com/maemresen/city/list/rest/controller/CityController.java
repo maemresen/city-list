@@ -7,8 +7,10 @@ import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.util.constants.RoleNames;
 import com.maemresen.city.list.rest.config.GenericResponse;
+import com.maemresen.city.list.rest.config.ServletUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,8 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.Map;
 
 @Tag(name = "City Controller", description = "City related operations like listing, editing etc.")
@@ -59,10 +61,9 @@ public class CityController {
 
 	@Operation(summary = "Update Photo of the city")
 	@PostMapping( "/photo/{cityId}")
-	public String updatePhoto(@PathVariable("cityId")Long cityId, @RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) throws ServiceException {
+	public void updatePhoto(@PathVariable("cityId")Long cityId, @RequestParam("file") MultipartFile file, HttpServletResponse response) throws ServiceException, IOException {
 		cityService.updatePhoto(cityId, file);
-		redirectAttributes.addFlashAttribute("message", "You successfully uploaded " + file.getOriginalFilename() + "!");
-		return "redirect:/";
+		ServletUtils.setOkResponse(response);
 	}
 
 	@Operation(summary = "Delete Photo of the city")
