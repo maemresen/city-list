@@ -2,6 +2,8 @@ import ROUTE_PATHS from './routePaths';
 import Home from '../../pages/Home';
 import SignIn from '../../pages/SignIn';
 import Cities from '../../pages/Cities';
+import Unauthorized from '../../pages/Unauthorized';
+import ROLE from './roles';
 
 const ROUTES = Object.freeze({
   HOME: {
@@ -24,6 +26,21 @@ const ROUTES = Object.freeze({
     name: 'Cities',
     path: ROUTE_PATHS.CITIES,
     component: <Cities />,
+    requiredRoles: [ROLE.ROLE_ALLOW_EDIT],
+  },
+  USERS: {
+    key: 'cities',
+    name: 'Cities',
+    path: ROUTE_PATHS.USERS,
+    component: <Cities />,
+    requiredRoles: [ROLE.ROLE_ADMIN],
+  },
+  UNAUTHORIZED: {
+    key: 'unauthorized',
+    name: 'Unauthorized',
+    path: ROUTE_PATHS.UNAUTHORIZED,
+    component: <Unauthorized />,
+    isPublic: true,
   },
 });
 

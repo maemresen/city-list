@@ -28,7 +28,7 @@ const StyledAccountCircle = styled(AccountCircle)`
 
 function ResponsiveAppBar({ leftItems }) {
   const { isAuthenticated, self, signOut } = useContext(AuthContext);
-  const { firstName, lastName } = self;
+  const { firstName, lastName, role } = self;
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -39,6 +39,7 @@ function ResponsiveAppBar({ leftItems }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    signOut();
   };
 
   return (
@@ -83,7 +84,17 @@ function ResponsiveAppBar({ leftItems }) {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {leftItems.filter(({ isPublic }) => isPublic || isAuthenticated)
+            {leftItems.filter(({ isPublic, requiredRoles }) => {
+              if (isPublic) {
+                return true;
+              }
+
+              if (!isAuthenticated) {
+                return false;
+              }
+
+              return roleUtils.hasAnyRole({ self, requiredRoles });
+            })
               .map(({ name, path }) => (
                 <Button key={name} sx={{ my: 2, color: 'white', display: 'block' }}>
                   <AppBarLink to={path}>
@@ -95,40 +106,38 @@ function ResponsiveAppBar({ leftItems }) {
           </Box>
 
           {isAuthenticated ? (
-            <>
-              <div>
-                <Button
-                  size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
-                  onClick={handleMenu}
-                  color="inherit"
-                >
-                  {`Hello, ${firstName}`}
-                  <StyledAccountCircle />
-                </Button>
-                <Menu
-                  id="menu-appbar"
-                  anchorEl={anchorEl}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  {roleUtils.isAdmin({ self })
+            <div>
+              <Button
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                {`Hello, ${firstName} ${lastName}  - (${role})`}
+                <StyledAccountCircle />
+              </Button>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Sign Out</MenuItem>
+                {roleUtils.isAdmin({ self })
                       && <MenuItem onClick={handleClose}>Users</MenuItem>}
-                </Menu>
-              </div>
-            </>
+              </Menu>
+            </div>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">

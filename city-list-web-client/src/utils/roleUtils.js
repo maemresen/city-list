@@ -1,13 +1,16 @@
 import ROLE from './constants/roles';
 
 const roleUtils = {
-  hasRole({ self = {}, expectedRole }) {
+  hasRole({ self = {}, requiredRole }) {
     const { role } = self;
-    return role === expectedRole;
+    return role === requiredRole;
   },
 
-  hasAnyRole({ self = {}, expectedRoles = [] }) {
-    return expectedRoles.some((expectedRole) => this.hasRole({ self, expectedRole }));
+  hasAnyRole({ self = {}, requiredRoles = [] }) {
+    if (requiredRoles.length === 0) {
+      return true;
+    }
+    return requiredRoles.some((requiredRole) => this.hasRole({ self, requiredRole }));
   },
 
   isAdmin({ self = {} }) {

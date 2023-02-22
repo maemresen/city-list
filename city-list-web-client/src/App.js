@@ -15,9 +15,11 @@ function App() {
           <Route path="/" element={<Layout />}>
             {Object.keys(ROUTES).map((key) => {
               const {
-                path, component, index, isPublic,
+                path, component, index, isPublic, requiredRoles,
               } = ROUTES[key];
-              const element = isPublic ? component : <Authorized>{component}</Authorized>;
+              const element = isPublic
+                ? component
+                : <Authorized requiredRoles={requiredRoles}>{component}</Authorized>;
               return <Route index={index} path={path} element={element} />;
             })}
             <Route path="*" element={<NoPage />} />

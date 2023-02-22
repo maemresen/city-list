@@ -28,9 +28,11 @@ function http({
   })
     .then((response) => response.json())
     .then(({ data, message, errorCode }) => {
-      console.log(`'${message}' - '${errorCode}' response received for ${uri}`);
       if (errorCode) {
+        console.log(`Failed to fetched data with '${errorCode}' message. Error Code: ${errorCode} for ${uri}`);
         throw new Error(errorCode);
+      } else {
+        console.log(`Data successfully fetched with '${message}' message from service for ${uri}`);
       }
       return data;
     }).catch((error) => {

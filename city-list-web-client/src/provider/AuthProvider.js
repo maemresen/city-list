@@ -3,16 +3,19 @@ import {
 } from 'react';
 import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 import COOKIE_KEY from '../utils/constants/cookieKeys';
 import authService from '../service/authService';
 import AuthContext from '../context/AuthContext';
 import userService from '../service/userService';
+import ROUTE_PATHS from '../utils/constants/routePaths';
 
 function AuthProvider({ children }) {
+  const navigate = useNavigate();
+
   const [accessToken, setAccessToken] = useState(Cookies.get(COOKIE_KEY.ACCESS_TOKEN));
   const [refreshToken, setRefreshToken] = useState(Cookies.get(COOKIE_KEY.REFRESH_TOKEN));
   const [self, setSelf] = useState({});
-
   const isAuthenticated = useMemo(() => !!accessToken, [accessToken]);
 
   useEffect(() => {
@@ -30,6 +33,7 @@ function AuthProvider({ children }) {
 
       Cookies.set(COOKIE_KEY.REFRESH_TOKEN, newRefreshToken);
       setRefreshToken(newRefreshToken);
+      navigate(ROUTE_PATHS.HOME);
     }).then(() => toast.success('Sign In Successfully'));
 
   const signOut = () => {
@@ -37,6 +41,7 @@ function AuthProvider({ children }) {
     Cookies.remove(COOKIE_KEY.REFRESH_TOKEN);
     setAccessToken(null);
     setRefreshToken(null);
+    navigate(ROUTE_PATHS.SIGN_IN);
   };
 
   return (
