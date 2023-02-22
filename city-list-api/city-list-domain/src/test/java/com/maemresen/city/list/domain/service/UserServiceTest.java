@@ -1,5 +1,6 @@
 package com.maemresen.city.list.domain.service;
 
+import com.maemresen.city.list.domain.MockConstants;
 import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.exception.business.user.UserNotFoundException;
 import com.maemresen.city.list.domain.service.impl.UserServiceImpl;
@@ -29,8 +30,9 @@ class UserServiceTest {
 	private UserServiceImpl userServiceImpl;
 
 	@Test
-	void getSelf_whenExistingUuid() {
-		UUID mockUuid = UUID.randomUUID();
+	void getSelf_withExistingUuid() {
+		final UUID mockUuid = MockConstants.MOCK_UUID;
+
 		User mockUser = new User();
 		mockUser.setUuid(mockUuid);
 
@@ -46,9 +48,9 @@ class UserServiceTest {
 	}
 
 	@Test
-	void getSelf_whenNonExistingUuid() {
+	void getSelf_withNonExistingUuid() {
 		Mockito.when(userRepository.findByUuid(Mockito.any())).thenReturn(Optional.empty());
 
-		Assertions.assertThrows(UserNotFoundException.class, () -> userServiceImpl.getByUuid(null));
+		Assertions.assertThrows(UserNotFoundException.class, () -> userServiceImpl.getByUuid(MockConstants.MOCK_UUID));
 	}
 }
