@@ -22,6 +22,10 @@ const AppBarLink = styled(Link)`
   color: inherit;
 `;
 
+const StyledAccountCircle = styled(AccountCircle)`
+  margin-left: 1rem;
+`;
+
 function ResponsiveAppBar({ leftItems }) {
   const { isAuthenticated, self, signOut } = useContext(AuthContext);
   const { firstName, lastName } = self;
@@ -92,13 +96,8 @@ function ResponsiveAppBar({ leftItems }) {
 
           {isAuthenticated ? (
             <>
-              <Box sx={{ flexGrow: 0 }}>
-                <AppBarLink>
-                  {`Hello, ${firstName}`}
-                </AppBarLink>
-              </Box>
               <div>
-                <IconButton
+                <Button
                   size="large"
                   aria-label="account of current user"
                   aria-controls="menu-appbar"
@@ -106,8 +105,9 @@ function ResponsiveAppBar({ leftItems }) {
                   onClick={handleMenu}
                   color="inherit"
                 >
-                  <AccountCircle />
-                </IconButton>
+                  {`Hello, ${firstName}`}
+                  <StyledAccountCircle />
+                </Button>
                 <Menu
                   id="menu-appbar"
                   anchorEl={anchorEl}
@@ -124,30 +124,11 @@ function ResponsiveAppBar({ leftItems }) {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  {roleUtils.isAllowEdit({ self }) && <MenuItem onClick={handleClose}>Users</MenuItem>}
+                  {roleUtils.isAdmin({ self })
+                      && <MenuItem onClick={handleClose}>Users</MenuItem>}
                 </Menu>
               </div>
             </>
-          // <>
-          //   <Box sx={{ flexGrow: 0 }}>
-          //     <AppBarLink>
-          //       {`Hello, ${firstName}`}
-          //     </AppBarLink>
-          //   </Box>
-          //
-          //   <Box sx={{ flexGrow: 0 }}>
-          //     <Tooltip title="Open settings">
-          //       <Button
-          //         sx={{ my: 2, color: 'white', display: 'block' }}
-          //         onClick={signOut}
-          //       >
-          //         <AppBarLink>
-          //           Sign Out
-          //         </AppBarLink>
-          //       </Button>
-          //     </Tooltip>
-          //   </Box>
-          // </>
           ) : (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
