@@ -45,7 +45,7 @@ public class CityServiceImpl implements CityService {
 
 	@Transactional
 	@Override
-	public CityResponseDto create(CityCreateRequestDto cityCreateDto) {
+	public CityResponseDto create(CityCreateRequestDto cityCreateDto) throws ServiceException {
 		City city = cityMapper.mapToEntity(cityCreateDto);
 		UUID photoFileUuid = cityCreateDto.getPhotoFileUuid();
 		fileService.findEntityByUuid(photoFileUuid).ifPresent(city::setPhotoFile);
@@ -112,7 +112,7 @@ public class CityServiceImpl implements CityService {
 		}
 	}
 
-	private void importCity(CityCsvDto cityCsvDto) {
+	private void importCity(CityCsvDto cityCsvDto) throws ServiceException {
 
 		Long id = cityCsvDto.getId();
 		String name = cityCsvDto.getName();

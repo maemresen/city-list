@@ -21,14 +21,14 @@ public interface FileService {
 	 * @param uuid uuid that is requested
 	 * @return File entity if exsits or else empty
 	 */
-	Optional<File> findEntityByUuid(UUID uuid);
+	Optional<File> findEntityByUuid(UUID uuid) throws ServiceException;
 
 	/**
 	 * To save a file
 	 * @param file entity will be saved
 	 * @return saved entity
 	 */
-	File saveEntity(File file);
+	File saveEntity(File file) throws ServiceException;
 
 	/**
 	 * To download and write file to the file-system.

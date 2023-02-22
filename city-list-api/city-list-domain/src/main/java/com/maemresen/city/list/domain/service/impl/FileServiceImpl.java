@@ -1,10 +1,10 @@
 package com.maemresen.city.list.domain.service.impl;
 
-import com.maemresen.city.list.commons.io.file.download.FileDownloadUtil;
 import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.exception.business.file.FileIoException;
 import com.maemresen.city.list.domain.service.FileService;
+import com.maemresen.city.list.domain.service.IOService;
 import com.maemresen.city.list.domain.service.mapper.FileMapper;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
@@ -28,15 +28,22 @@ import java.util.UUID;
 public class FileServiceImpl implements FileService {
 
 	private final FileRepository fileRepository;
+	private final IOService ioService;
 	private final FileMapper fileMapper;
 
 	@Override
-	public Optional<File> findEntityByUuid(UUID uuid){
+	public Optional<File> findEntityByUuid(UUID uuid) throws ServiceException {
+		if (uuid == null) {
+			throw new ServiceException("UUID cannot be null");
+		}
 		return fileRepository.findByUuid(uuid);
 	}
 
 	@Override
-	public File saveEntity(File file){
+	public File saveEntity(File file) throws ServiceException {
+		if (file == null) {
+			throw new ServiceException("File cannot be null");
+		}
 		return fileRepository.save(file);
 	}
 
@@ -45,16 +52,12 @@ public class FileServiceImpl implements FileService {
 		log.debug("Trying to download {}", url);
 		UUID fileUuid = EntityUtils.generateUUID();
 		String downloadFilePath = String.format("downloads/%s", fileUuid);
-		try (FileOutputStream fileOutputStream = new FileOutputStream(downloadFilePath)) {
-			byte[] photoBytes = FileDownloadUtil.downloadAndGetBytes(url);
-			fileOutputStream.write(photoBytes);
-			File downloadedFile = fileRepository.save(File.builder()
-				.uuid(fileUuid)
-				.build());
-			return fileMapper.mapToFileDto(downloadedFile);
-		} catch (Exception exception) {
-			throw new ServiceException("Error while downloading file from " + url, exception);
-		}
+		byte[] photoBytes = ioService.downloadAndGetBytes(url);
+		ioService.writeBytesToPath(photoBytes, downloadFilePath);
+		File downloadedFile = fileRepository.save(File.builder()
+			.uuid(fileUuid)
+			.build());
+		return fileMapper.mapToFileDto(downloadedFile);
 	}
 
 	@Override
