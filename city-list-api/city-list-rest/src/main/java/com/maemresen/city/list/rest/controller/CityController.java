@@ -5,6 +5,7 @@ import com.maemresen.city.list.domain.error.exception.city.CityNotFoundException
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
+import com.maemresen.city.list.domain.util.constants.RoleNames;
 import com.maemresen.city.list.rest.config.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +13,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -44,6 +46,7 @@ public class CityController {
 			.orElseThrow(() -> new CityNotFoundException(id));
 	}
 
+	@Secured(RoleNames.ROLE_ALLOW_EDIT)
 	@Operation(summary = "Update City")
 	@PutMapping
 	public GenericResponse<CityResponseDto> update(@RequestBody @Valid CityUpdateRequestDto requestDto) throws ServiceException {
