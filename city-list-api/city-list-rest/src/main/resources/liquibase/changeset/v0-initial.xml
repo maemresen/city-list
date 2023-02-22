@@ -57,7 +57,9 @@
     </changeSet>
     <changeSet id="v0.02-init_users" author="SYSTEM">
         <sql>
-            INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (1, '430254bc-864a-460c-8a7b-b1251ffb86ae', 'admin', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Admin', 'User')
+            INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (1, '430254bc-864a-460c-8a7b-b1251ffb86ae', 'admin', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Admin', 'User');
+            INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (2, 'feb5eba6-a951-4df7-b8f1-618a3ee1f911', 'edit', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Edit', 'User');
+            INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (3, '5a3d7c36-66ba-4f51-a44a-53442e2af1a1', 'read', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Read', 'User');
         </sql>
     </changeSet>
 </databaseChangeLog>
