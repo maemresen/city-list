@@ -48,7 +48,6 @@ function City() {
       ...formErrors,
       [name]: error,
     });
-    console.log('FormErrors', formErrors);
     setHasError(error || Object.values(formErrors).some((x) => x));
   };
 
