@@ -9,7 +9,7 @@ The main motivation of this project is listing and editing cities in the world.
 - Also docker-compose is a must
 
 ## Deployment
-All the deployment related files are placed under deployment (see [deployment](./deployment)) folder under the repo.\
+All the deployment related files are placed under deployment (see [deployment](./deployment)) folder under the repo.
 1. Clone project to your local
 2. To bootstrap app run the following command
      ```bash
@@ -34,10 +34,10 @@ After sign in you will be redirected to home page
 As you can see on the screenshot at app bar, full name and role of the user are visible. \
 For example in this screenshot, our user's full name is **EDIT USER** and it has **ROLE_ALLOW_EDIT**
 
-**IMPORTANT NOTE 1** \
+### IMPORTANT NOTE 1
 Environment variables at .env (see [.env](./deployment/.env)) are important. Host and Port values for backend and front-end modules are stored at this variable.
 
-**IMPORTANT NOTE 2** \
+### IMPORTANT NOTE 2
 If you change the values then you the see the affects of your change you shuld build images by running the following command
 ````bash
  docker-compose -f /path/to/repo/deployment/docker-compose.yml build --no-cache
