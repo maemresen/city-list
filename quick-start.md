@@ -27,16 +27,33 @@ After build operation completed, backend module will start populating cities fro
 Meanwhile, you can start using application.
 
 You can check running containers. It should be similar to something following; \
-![docker ps output](./documentation/screenshots/ss-docker-ps.png)
+![ss-docker-ps](./documentation/screenshots/ss-docker-ps.png)
 
 Open browser and open http://localhost:4000/sign-in
-![sign-in](./documentation/screenshots/ss-sign-in.png)
+![ss-sign-in](./documentation/screenshots/ss-sign-in.png)
 
 After sign in you will be redirected to home page
-![sign-in](./documentation/screenshots/ss-home.png)
-
 As you can see on the screenshot at app bar, full name and role of the user are visible. \
 For example in this screenshot, our user's full name is **EDIT USER** and it has **ROLE_ALLOW_EDIT**
+![ss-home](./documentation/screenshots/ss-home.png)
+
+
+To list cities navigate to /cities path. A page on the following screenshot will be shown to the user \
+From top-left of the table, cities may search with name and \
+by clicking **Edit**, user will be redirected to edit City screen
+![ss-cities](./documentation/screenshots/ss-cities.png)
+
+
+If the city has photo; name and photo of the city will shown to the user as follows; \
+By updating name field and clicking **Save** button, city name updated. \
+![ss-edit-with-photo](./documentation/screenshots/ss-edit-with-photo.png)
+
+By clicking **Delete Photo** photo of the city will be deleted. \
+After selecting file with file picker, by clicking **Upload Photo** button \ 
+photo for the city will be saved and related with city. \
+and screen will become similar to the previous screen shot
+![ss-edit-without-photo](./documentation/screenshots/ss-edit-without-photo.png)
+
 
 ### IMPORTANT NOTE 1
 Environment variables at .env (see [.env](./deployment/.env)) are important. Host and Port values for backend and front-end modules are stored at this variable.
