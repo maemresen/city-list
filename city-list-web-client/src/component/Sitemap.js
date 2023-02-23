@@ -23,10 +23,10 @@ function Sitemap({ message }) {
                   You need to login with ROLE_ALLOW_EDIT or ROLE_READ_ONLY roles.
                 </li>
                 <li>
-                  For ROLE_ALLOW_EDIT =>  username: edit  password: admin
+                  For ROLE_ALLOW_EDIT =  username: edit  password: admin
                 </li>
                 <li>
-                  For ROLE_READ_ONLY =>  username: read  password: admin
+                  For ROLE_READ_ONLY =  username: read  password: admin
                 </li>
               </ul>
             </li>
