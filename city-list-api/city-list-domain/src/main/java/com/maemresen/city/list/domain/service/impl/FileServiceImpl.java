@@ -70,9 +70,10 @@ public class FileServiceImpl implements FileService {
 	}
 
 	@Override
-	public void storeFile(UUID uuid, MultipartFile multipartFile) throws ServiceException {
+	public boolean storeFile(UUID uuid, MultipartFile multipartFile) throws ServiceException {
 		try (FileOutputStream fileOutputStream = new FileOutputStream("downloads/"+uuid)){
 			fileOutputStream.write(multipartFile.getBytes());
+			return true;
 		} catch(Exception e){
 			throw new FileIoException("Failed to store file", e);
 		}

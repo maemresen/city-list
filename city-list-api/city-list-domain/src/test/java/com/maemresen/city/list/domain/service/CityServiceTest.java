@@ -1,5 +1,6 @@
 package com.maemresen.city.list.domain.service;
 
+import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.MockConstants;
 import com.maemresen.city.list.domain.entity.City;
 import com.maemresen.city.list.domain.entity.File;
@@ -9,18 +10,20 @@ import com.maemresen.city.list.domain.exception.business.city.InvalidCityNameExc
 import com.maemresen.city.list.domain.service.impl.CityServiceImpl;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.CityCsvDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
+import com.maemresen.city.list.domain.service.model.dto.FileDto;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -162,5 +165,70 @@ class CityServiceTest {
 		Assertions.assertThrows(CityNotFoundException.class, () -> cityServiceImpl.update(mockCityUpdateRequestDto));
 	}
 
+	@Test
+	void importCitesFromCsv_happyPath() throws CsvReadException, ServiceException {
+		final String mockCityName = "mock-name";
+		final String mockCityPhotoUrl = "mock-url";
+		final UUID mockCityPhotoUuid = MockConstants.MOCK_UUID;
+		final CityCsvDto mockCityCsvDto = CityCsvDto.builder()
+			.name(mockCityName)
+			.photoUrl(mockCityPhotoUrl)
+			.build();
+		final FileDto mockFileDto = new FileDto();
+		mockFileDto.setUuid(mockCityPhotoUuid);
+
+		Mockito.when(citiesCsvReader.parse(Mockito.any())).thenReturn(List.of(mockCityCsvDto));
+		Mockito.when(fileService.downloadFile(Mockito.any())).thenReturn(mockFileDto);
+
+		Assertions.assertDoesNotThrow(() -> cityServiceImpl.importCitesFromCsv(null));
+
+	}
+
+	@Test
+	void importCitesFromCsv_csvParseError() throws CsvReadException {
+
+		Mockito.when(citiesCsvReader.parse(Mockito.any())).thenThrow(CsvReadException.class);
+		Assertions.assertThrows(ServiceException.class, () -> cityServiceImpl.importCitesFromCsv(null));
+	}
+
+	@Test
+	void deletePhoto_happyPath() {
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(new City()));
+		Mockito.when(cityRepository.save(Mockito.any())).thenReturn(new City());
+
+		Assertions.assertDoesNotThrow(() -> cityServiceImpl.deletePhoto(null));
+	}
+
+	@Test
+	void deletePhoto_nonExistingCity() {
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+		Assertions.assertThrows(CityNotFoundException.class, () -> cityServiceImpl.deletePhoto(null));
+	}
+
+	@Test
+	void updatePhoto_happyPath() throws ServiceException {
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(new City()));
+		Mockito.when(fileService.storeFile(Mockito.any(), Mockito.any())).thenReturn(true);
+		Mockito.when(fileService.saveEntity(Mockito.any())).thenReturn(new File());
+		Mockito.when(cityRepository.save(Mockito.any())).thenReturn(new City());
+
+		Assertions.assertDoesNotThrow(() -> cityServiceImpl.deletePhoto(null));
+	}
+
+	@Test
+	void updatePhoto_nonExistingEntity() {
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+		Assertions.assertThrows(CityNotFoundException.class, () -> cityServiceImpl.updatePhoto(null, null));
+	}
+
+	@Test
+	void updatePhoto_failureOnStoreFile() throws ServiceException {
+		Mockito.when(cityRepository.findById(Mockito.any())).thenReturn(Optional.of(new City()));
+		Mockito.when(fileService.storeFile(Mockito.any(), Mockito.any())).thenThrow(ServiceException.class);
+
+		Assertions.assertThrows(ServiceException.class, () -> cityServiceImpl.updatePhoto(null, null));
+	}
 }
 

@@ -66,5 +66,5 @@ public interface FileService {
 	 * @param multipartFile fill will be stored
 	 * @throws ServiceException something went wrong.
 	 */
-	void storeFile(UUID uuid, MultipartFile multipartFile) throws ServiceException;
+	boolean storeFile(UUID uuid, MultipartFile multipartFile) throws ServiceException;
 }
