@@ -8,4 +8,4 @@
 
 # Authentication & Authorization
 For the authentication JWT flow was used.  You can check details on the following diagram\
-[Auth Flow](./documentation/auth-flow-v1.drawio.png)
+![Auth Flow](./documentation/auth-flow-v1.drawio.png)

@@ -13,4 +13,4 @@ The project consists of the following modules;
 3. ReactJS Client
 
 See more on the following diagram; \
-[The Big Picture](./documentation/the-big-picture-v1.png)
+![The Big Picture](./documentation/the-big-picture-v1.png)
