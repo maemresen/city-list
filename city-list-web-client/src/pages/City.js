@@ -3,12 +3,15 @@ import styled from '@emotion/styled';
 import {
   Box, Button, Container, Grid, TextField,
 } from '@mui/material';
-import { useCallback, useContext, useState } from 'react';
+import {
+  useCallback, useContext, useEffect, useState,
+} from 'react';
 import { toast } from 'react-toastify';
 import * as React from 'react';
 import AuthContext from '../context/AuthContext';
 import cityService from '../service/cityService';
 import fileUtils from '../utils/fileUtils';
+import Sitemap from '../component/Sitemap';
 
 const StyledContainer = styled(Container)`
   padding: 1rem;
@@ -27,6 +30,7 @@ function City() {
   const { id } = useParams();
   const { accessToken, refreshToken } = useContext(AuthContext);
 
+  const [dataError, setDataError] = useState(false);
   const [selectedPhoto, setSelectedPhoto] = useState();
   const [hasError, setHasError] = useState(null);
   const [formValues, setFormValues] = useState({});
@@ -42,12 +46,15 @@ function City() {
         photoFileUuid,
       });
       setFormErrors({});
+    }).catch(() => {
+      setDataError(true);
+      toast.error(`Failed to fetch City ${id}`);
     });
   }, [id, accessToken, refreshToken]);
 
-  useState(() => {
+  useEffect(() => {
     fetchData();
-  });
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value, required } = e.target;
@@ -71,7 +78,7 @@ function City() {
       city: { id, name: formValues.name },
     }).then(() => {
       fetchData();
-      return toast.success(`City ${id} updated successfully`);
+      toast.success(`City ${id} updated successfully`);
     });
   };
 
@@ -101,6 +108,9 @@ function City() {
     });
   };
 
+  if (dataError) {
+    return <Sitemap message="Failed to get city" />;
+  }
   return (
     <StyledContainer maxWidth="xs" mar>
       <Grid container spacing={2} alignItems="stretch">

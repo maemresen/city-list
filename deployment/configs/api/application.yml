@@ -3,7 +3,7 @@ server:
     context-path: /api
 spring:
   profiles:
-    active: test
+    active: test, cityInitializer
   datasource:
     url: jdbc:postgresql://database:5432/${TEST_DB_NAME}
     username: ${TEST_DB_USER}
@@ -14,3 +14,5 @@ app:
     cors:
       allowed-origins:
         - ${ALLOWED_ORIGIN}
+  file-server:
+    download-path: /downloads

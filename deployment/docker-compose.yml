@@ -16,21 +16,22 @@ services:
     links:
       - database
     ports:
-      - 4080:8080
+      - ${API_PORT}:8080
     environment:
       SPRING_CONFIG_ADDITIONALLOCATION: file:/config/application.yml
       TEST_DB_USER: postgres
       TEST_DB_PASS: postgres
       TEST_DB_NAME: city_list_local
-      ALLOWED_ORIGIN: http://localhost:4000
+      ALLOWED_ORIGIN: http://${HOST}:${WEB_CLIENT_PORT}
     volumes:
       - ./configs/api/:/config/
+      - ./downloads:/downloads
 
   city-list-web-client:
     build:
       context: ../city-list-web-client
       dockerfile: ../deployment/dockerfile/Dockerfile-web-client
       args:
-        REACT_APP_API_BASE_URL: http://localhost:4080/api
+        REACT_APP_API_BASE_URL: http://${HOST}:4080/api
     ports:
-      - 4000:80
+      - ${WEB_CLIENT_PORT}:80
