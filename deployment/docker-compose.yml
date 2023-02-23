@@ -27,8 +27,14 @@ services:
     volumes:
       - ./configs/api/:/config/
 
-#  city-list-client:
-#    image: ghcr.io/yazilim-vip/fintrack-web-client:latest
+  city-list-web-client:
+    build:
+      context: ../city-list-web-client
+      dockerfile: ../deployment/dockerfile/Dockerfile-web-client
+    expose:
+      - 80
+    ports:
+      - 9000:80
 
   proxy:
     image: nginx:alpine
