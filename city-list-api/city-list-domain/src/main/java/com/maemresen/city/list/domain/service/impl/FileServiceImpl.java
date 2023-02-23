@@ -39,9 +39,6 @@ public class FileServiceImpl implements FileService {
 
 	@Override
 	public Optional<File> findEntityByUuid(UUID uuid) throws ServiceException {
-		if (uuid == null) {
-			throw new ServiceException("UUID cannot be null");
-		}
 		return fileRepository.findByUuid(uuid);
 	}
 

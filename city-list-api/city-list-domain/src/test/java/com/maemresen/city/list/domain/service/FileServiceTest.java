@@ -62,11 +62,6 @@ class FileServiceTest {
 		Assertions.assertTrue(optionalFile.isEmpty());
 	}
 
-	@Test
-	void findEntityByUuid_withNullUuid() {
-		Assertions.assertThrows(ServiceException.class, () -> fileServiceImpl.findEntityByUuid(null));
-	}
-
 	// saveEntity method tests
 
 	@Test
