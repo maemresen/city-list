@@ -37,13 +37,14 @@ As you can see on the screenshot at app bar, full name and role of the user are 
 For example in this screenshot, our user's full name is **EDIT USER** and it has **ROLE_ALLOW_EDIT**
 ![ss-home](./documentation/screenshots/ss-home.png)
 
-
+## Listing Cities
 To list cities navigate to /cities path. A page on the following screenshot will be shown to the user \
 From top-left of the table, cities may search with name and \
 by clicking **Edit**, user will be redirected to edit City screen
 ![ss-cities](./documentation/screenshots/ss-cities.png)
 
 
+## Editing Cities
 If the city has photo; name and photo of the city will shown to the user as follows; \
 By updating name field and clicking **Save** button, city name updated. \
 ![ss-edit-with-photo](./documentation/screenshots/ss-edit-with-photo.png)
