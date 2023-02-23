@@ -28,6 +28,8 @@ app:
       photo-download-retry:
         maxAttempts: 3
         maxDelay: 1000
+  file-server:
+    download-path: downloads
   security:
     cors:
       allow-credentials: true

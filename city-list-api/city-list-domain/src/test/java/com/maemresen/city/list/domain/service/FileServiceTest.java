@@ -6,6 +6,7 @@ import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.service.impl.FileServiceImpl;
 import com.maemresen.city.list.domain.service.mapper.FileMapper;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
+import com.maemresen.city.list.domain.service.model.prop.FileServerProps;
 import com.maemresen.city.list.domain.service.repository.FileRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,9 @@ import java.util.UUID;
 
 @SpringBootTest(classes = FileServiceImpl.class)
 class FileServiceTest {
+
+	@MockBean
+	private FileServerProps fileServerProps;
 
 	@MockBean
 	private FileRepository fileRepository;
