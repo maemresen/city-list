@@ -14,12 +14,18 @@
 
 ## Deployment
 All the deployment related files are placed under deployment (see [deployment](./deployment)) folder under the repo.
-1. Clone project to your local
-2. To bootstrap app run the following command
-     ```bash
-   docker-compose -f /path/to/repo/deployment/docker-compose.yml --env-file /path/to/repo/deployment/.env up -d
-     ```
+
+Clone project to your local
+
+To bootstrap app run the following command
+```shell
+docker-compose -f /path/to/repo/deployment/docker-compose.yml --env-file /path/to/repo/deployment/.env up -d
+```
 It may take ~4mins minutes to wake-up. \
+You could follow the process with the following command
+````shell
+docker-compose -f /path/to/repo/deployment/docker-compose.yml --env-file /path/to/repo/deployment/.env up -d
+````
 See more on the following diagram; \
 [Deployment Life-Cycle](./documentation/deployment-life-cycle-v1.png)
 

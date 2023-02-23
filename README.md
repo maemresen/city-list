@@ -22,6 +22,12 @@ There are three role exists on the system.
 
 To bootstrap project on your local easily with docker-compose [Quick Start](./quick-start.md) could be checked 
 
+After bootstrap;
+* UI will be accessible from http://localhost:4000 (**if you use default values**)
+* API documentation will be accessible from http://localhost:4080/api/swagger-ui/index.html
+* Also with with default values there will be download folder created on your host machine under [deployment](./deployment) folder. \
+  And all uploaded files will be stored under this folder.
+
 ## Outline
 1. [Quick Start](./quick-start.md)
 2. [Big Picture](./big-picture.md)
