@@ -55,7 +55,6 @@ photo for the city will be saved and related with city. \
 and screen will become similar to the previous screen shot
 ![ss-edit-without-photo](./documentation/screenshots/ss-edit-without-photo.png)
 
-
 ### IMPORTANT NOTE 1
 Environment variables at .env (see [.env](./deployment/.env)) are important. Host and Port values for backend and front-end modules are stored at this variable.
 
