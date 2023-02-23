@@ -1,8 +1,8 @@
 [README](./README.md)
-1. [quick-start.md](./quick-start.md)
-2. [big-picture.md](./big-picture.md)
-3. [auth.md](./auth.md)
-4. extra.md
+1. [Quick Start](./quick-start.md)
+2. [Big Picture](./big-picture.md)
+3. [Authentication & Authorization](./auth.md)
+4. [Extra](./quick-start.md)
 
 ---
 
