@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom';
 import styled from '@emotion/styled';
 import {
-  Box, Button, Container, TextField,
+  Box, Button, Container, Grid, TextField,
 } from '@mui/material';
 import { useCallback, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -103,17 +103,24 @@ function City() {
 
   return (
     <StyledContainer maxWidth="xs" mar>
-      <StyledTextField
-        id="name"
-        name="name"
-        value={formValues.name || ''}
-        error={formErrors.name}
-        required
-        onChange={handleInputChange}
-        label="Name"
-        variant="outlined"
-        fullWidth
-      />
+      <Grid container spacing={2} alignItems="stretch">
+        <Grid item xs={8}>
+          <StyledTextField
+            id="name"
+            name="name"
+            value={formValues.name || ''}
+            error={formErrors.name}
+            required
+            onChange={handleInputChange}
+            label="Name"
+            variant="outlined"
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={4} c>
+          <Button variant="contained" onClick={handleUpdate} disabled={hasError}>Save</Button>
+        </Grid>
+      </Grid>
 
       {formValues.photoFileUuid ? (
         <>
@@ -139,7 +146,6 @@ function City() {
         </>
       )}
       <hr />
-      <Button variant="contained" onClick={handleUpdate} disabled={hasError}>Sign In</Button>
     </StyledContainer>
   );
 }
