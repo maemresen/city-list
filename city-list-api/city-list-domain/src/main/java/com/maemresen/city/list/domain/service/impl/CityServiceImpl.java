@@ -2,18 +2,23 @@ package com.maemresen.city.list.domain.service.impl;
 
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.entity.City;
+import com.maemresen.city.list.domain.entity.CityComment;
 import com.maemresen.city.list.domain.entity.File;
+import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
 import com.maemresen.city.list.domain.exception.business.city.InvalidCityNameException;
 import com.maemresen.city.list.domain.service.CityService;
 import com.maemresen.city.list.domain.service.FileService;
+import com.maemresen.city.list.domain.service.mapper.CityCommentMapper;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
+import com.maemresen.city.list.domain.service.model.dto.CityAddCommentRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityCsvDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
+import com.maemresen.city.list.domain.service.repository.CityCommentRepository;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.service.specification.CitySearchSpecification;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
@@ -39,9 +44,14 @@ import java.util.UUID;
 public class CityServiceImpl implements CityService {
 
 	private final CityRepository cityRepository;
+	private final CityCommentRepository cityCommentRepository;
+
 	private final CityMapper cityMapper;
+	private final CityCommentMapper cityCommentMapper;
+
 	private final CitiesCsvReader citiesCsvReader;
 	private final FileService fileService;
+
 
 	@Transactional
 	@Override
@@ -138,7 +148,7 @@ public class CityServiceImpl implements CityService {
 	@Transactional
 	@Override
 	public void deletePhoto(Long cityId) throws ServiceException {
-		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
+		City city = findExistingCity(cityId);
 		city.setPhotoFile(null);
 		cityRepository.save(city);
 	}
@@ -146,7 +156,7 @@ public class CityServiceImpl implements CityService {
 	@Transactional
 	@Override
 	public void updatePhoto(Long cityId, MultipartFile file) throws ServiceException {
-		City city = cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
+		City city = findExistingCity(cityId);
 		UUID photoFileUuid = UUID.randomUUID();
 		fileService.storeFile(photoFileUuid, file);
 
@@ -155,5 +165,19 @@ public class CityServiceImpl implements CityService {
 		photoFile = fileService.saveEntity(photoFile);
 		city.setPhotoFile(photoFile);
 		cityRepository.save(city);
+	}
+
+	@Override
+	public void addComment(Long cityId, User user, CityAddCommentRequestDto requestDto) throws CityNotFoundException {
+		City commentedCity = findExistingCity(cityId);
+
+		CityComment cityComment = cityCommentMapper.mapToEntity(requestDto);
+		cityComment.setCommentUser(user);
+		cityComment.setCommentedCity(commentedCity);
+		cityCommentRepository.save(cityComment);
+	}
+
+	private City findExistingCity(Long cityId) throws CityNotFoundException {
+		return cityRepository.findById(cityId).orElseThrow(() -> new CityNotFoundException(cityId));
 	}
 }

@@ -1,6 +1,9 @@
 package com.maemresen.city.list.domain.service;
 
+import com.maemresen.city.list.domain.entity.User;
 import com.maemresen.city.list.domain.exception.ServiceException;
+import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
+import com.maemresen.city.list.domain.service.model.dto.CityAddCommentRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
@@ -69,4 +72,12 @@ public interface CityService {
 	 * @throws ServiceException something went wrong
 	 */
 	void updatePhoto(Long cityId, MultipartFile file) throws ServiceException;
+
+	/**
+	 * To add comment to city
+	 * @param cityId id of the city the comment will be added
+	 * @param user the owner of the comment
+	 * @param requestDto comment add request dto
+	 */
+	void addComment(Long cityId, User user, CityAddCommentRequestDto requestDto) throws CityNotFoundException;
 }

@@ -3,8 +3,10 @@ package com.maemresen.city.list.rest.controller;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
 import com.maemresen.city.list.domain.service.CityService;
+import com.maemresen.city.list.domain.service.model.dto.CityAddCommentRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
+import com.maemresen.city.list.domain.util.SecurityHelper;
 import com.maemresen.city.list.domain.util.constants.RoleNames;
 import com.maemresen.city.list.rest.config.GenericResponse;
 import com.maemresen.city.list.rest.config.ServletUtils;
@@ -67,9 +69,16 @@ public class CityController {
 	}
 
 	@Operation(summary = "Delete Photo of the city")
-	@DeleteMapping( "/photo/{cityId}")
+	@DeleteMapping("/photo/{cityId}")
 	public GenericResponse<Boolean> deletePhoto(@PathVariable("cityId") Long cityId) throws ServiceException {
 		cityService.deletePhoto(cityId);
+		return GenericResponse.ok();
+	}
+
+	@Operation(summary = "Adding Comment to City")
+	@PostMapping("{cityId}/comment")
+	public GenericResponse<Boolean> addComment(@PathVariable("cityId") Long cityId, @RequestBody @Valid CityAddCommentRequestDto requestDto) throws CityNotFoundException {
+		cityService.addComment(cityId, SecurityHelper.getAuthUser(), requestDto);
 		return GenericResponse.ok();
 	}
 }

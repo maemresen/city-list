@@ -1,6 +1,7 @@
 package com.maemresen.city.list.domain.entity;
 
 import com.maemresen.city.list.domain.entity.base.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
@@ -17,6 +18,8 @@ import lombok.Setter;
 @Entity
 public class CityComment extends BaseEntity {
 
+	@Column(name = "comment_text")
+	private String commentText;
 
 	@ManyToOne
 	@JoinColumn(name = "commenter_user_id")
