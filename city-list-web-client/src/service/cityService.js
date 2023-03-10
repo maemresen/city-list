@@ -64,6 +64,16 @@ const cityService = {
     uri: `city/photo/${cityId}`,
     token,
   }),
+
+  addComment: ({
+    token, cityId, comment,
+  }) => httpUtils.post({
+    uri: `city/${cityId}/comment`,
+    token,
+    body: {
+      commentText: comment,
+    },
+  }),
 };
 
 export default cityService;

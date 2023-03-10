@@ -112,14 +112,15 @@ function City() {
 
   const handleComment = (event) => {
     event.preventDefault();
-    console.log('adding comment : ', formValues.comment);
-    // TODO: cityService.update({
-    //   token: { accessToken, refreshToken },
-    //   city: { id, name: formValues.name },
-    // }).then(() => {
-    //   fetchData();
-    //   toast.success(`City ${id} updated successfully`);
-    // });
+    // console.log('adding comment : ', formValues.comment);
+    cityService.addComment({
+      token: { accessToken, refreshToken },
+      cityId: id,
+      comment: formValues.comment,
+    }).then(() => {
+      fetchData();
+      toast.success(`City ${id} updated successfully`);
+    });
   };
 
   if (dataError) {
