@@ -9,7 +9,10 @@ import org.mapstruct.Mapping;
 
 @Mapper(
 	componentModel = "spring",
-	uses = FileMapper.class,
+	uses = {
+		FileMapper.class,
+		CityCommentMapper.class,
+	},
 	builder = @Builder(disableBuilder = true)
 )
 public interface CityMapper {

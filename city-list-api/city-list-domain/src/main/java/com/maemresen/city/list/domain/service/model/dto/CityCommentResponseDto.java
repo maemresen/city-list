@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -14,9 +13,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CityResponseDto {
-	private Long id;
-	private String name;
-	private UUID photoFileUuid;
-	private List<CityCommentResponseDto> comments;
+public class CityCommentResponseDto {
+	private String username;
+	private String commentText;
 }
