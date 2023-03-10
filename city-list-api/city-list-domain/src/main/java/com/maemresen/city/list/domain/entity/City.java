@@ -4,11 +4,13 @@ import com.maemresen.city.list.domain.entity.base.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,4 +25,8 @@ public class City extends BaseEntity {
 	@OneToOne(orphanRemoval = true)
 	@JoinColumn(name = "PHOTO_FILE_ID")
 	private File photoFile;
+
+	@OneToMany(mappedBy = "commentedCity")
+	private List<CityComment> comments;
+
 }

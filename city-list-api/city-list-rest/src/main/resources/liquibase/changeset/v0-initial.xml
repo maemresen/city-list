@@ -62,4 +62,17 @@
             INSERT INTO PUBLIC.USER(ROLE_ID, UUID, USERNAME, PASSWORD, FIRST_NAME, LAST_NAME) VALUES (3, '5a3d7c36-66ba-4f51-a44a-53442e2af1a1', 'read', '$2a$12$SY/h60lyHXSNa/neyGTZueSpzvtVkMBfHtC51Oxj1m44/h5e9FNiu', 'Read', 'User');
         </sql>
     </changeSet>
+    <changeSet id="v0.03-comments" author="SYSTEM">
+        <sql>
+            CREATE TABLE PUBLIC.CITY_COMMENT
+            (
+                ID                BIGSERIAL PRIMARY KEY,
+                COMMENTER_USER_ID BIGINT,
+                COMMENTED_CITY_ID BIGINT,
+                COMMENT_TEXT      VARCHAR(255),
+                FOREIGN KEY (COMMENTER_USER_ID) REFERENCES PUBLIC.USER (ID),
+                FOREIGN KEY (COMMENTED_CITY_ID) REFERENCES PUBLIC.CITY (ID)
+            );
+        </sql>
+    </changeSet>
 </databaseChangeLog>
