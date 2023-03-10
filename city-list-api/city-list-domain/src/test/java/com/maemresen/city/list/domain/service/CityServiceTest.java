@@ -3,17 +3,20 @@ package com.maemresen.city.list.domain.service;
 import com.maemresen.city.list.commons.io.csv.read.CsvReadException;
 import com.maemresen.city.list.domain.MockConstants;
 import com.maemresen.city.list.domain.entity.City;
+import com.maemresen.city.list.domain.entity.CityComment;
 import com.maemresen.city.list.domain.entity.File;
 import com.maemresen.city.list.domain.exception.ServiceException;
 import com.maemresen.city.list.domain.exception.business.city.CityNotFoundException;
 import com.maemresen.city.list.domain.exception.business.city.InvalidCityNameException;
 import com.maemresen.city.list.domain.service.impl.CityServiceImpl;
+import com.maemresen.city.list.domain.service.mapper.CityCommentMapper;
 import com.maemresen.city.list.domain.service.mapper.CityMapper;
 import com.maemresen.city.list.domain.service.model.dto.CityCreateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.CityCsvDto;
 import com.maemresen.city.list.domain.service.model.dto.CityResponseDto;
 import com.maemresen.city.list.domain.service.model.dto.CityUpdateRequestDto;
 import com.maemresen.city.list.domain.service.model.dto.FileDto;
+import com.maemresen.city.list.domain.service.repository.CityCommentRepository;
 import com.maemresen.city.list.domain.service.repository.CityRepository;
 import com.maemresen.city.list.domain.util.CitiesCsvReader;
 import org.junit.jupiter.api.Assertions;
@@ -41,6 +44,12 @@ class CityServiceTest {
 
 	@MockBean
 	private FileService fileService;
+
+	@MockBean
+	private CityCommentRepository cityCommentRepository;
+
+	@MockBean
+	private CityCommentMapper cityCommentMapper;
 
 
 	@Autowired
