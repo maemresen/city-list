@@ -31,6 +31,7 @@ function City() {
   const { accessToken, refreshToken } = useContext(AuthContext);
 
   const [dataError, setDataError] = useState(false);
+  const [commentData, setCommentData] = useState([]);
   const [selectedPhoto, setSelectedPhoto] = useState();
   const [hasError, setHasError] = useState(null);
   const [formValues, setFormValues] = useState({});
@@ -40,12 +41,13 @@ function City() {
     cityService.getById({
       token: { accessToken, refreshToken },
       id,
-    }).then(({ name, photoFileUuid }) => {
+    }).then(({ name, photoFileUuid, comments }) => {
       setFormValues({
         name,
         photoFileUuid,
       });
       setFormErrors({});
+      setCommentData(comments);
     }).catch(() => {
       setDataError(true);
       toast.error(`Failed to fetch City ${id}`);
@@ -108,6 +110,18 @@ function City() {
     });
   };
 
+  const handleComment = (event) => {
+    event.preventDefault();
+    console.log('adding comment : ', formValues.comment);
+    // TODO: cityService.update({
+    //   token: { accessToken, refreshToken },
+    //   city: { id, name: formValues.name },
+    // }).then(() => {
+    //   fetchData();
+    //   toast.success(`City ${id} updated successfully`);
+    // });
+  };
+
   if (dataError) {
     return <Sitemap message="Failed to get city" />;
   }
@@ -156,6 +170,28 @@ function City() {
         </>
       )}
       <hr />
+      <StyledTextField
+        id="comment"
+        name="comment"
+        value={formValues.comment || ''}
+        error={formErrors.comment}
+        required
+        onChange={handleInputChange}
+        label="Comment"
+        variant="outlined"
+        fullWidth
+      />
+      <Button variant="contained" onClick={handleComment} disabled={hasError}>Comment</Button>
+      <hr />
+      <h1>Comments</h1>
+      {commentData.map(({ username, commentText }) => (
+        <div>
+          {username}
+          {' '}
+          commented
+          {commentText}
+        </div>
+      ))}
     </StyledContainer>
   );
 }
